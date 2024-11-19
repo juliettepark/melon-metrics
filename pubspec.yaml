@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  health: ^11.1.0
 
 dev_dependencies:
   flutter_test:
