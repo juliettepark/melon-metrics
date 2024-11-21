@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   health: ^11.1.0
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
