@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 
@@ -5,12 +7,41 @@ class HealthProvider with ChangeNotifier {
   double _caloriesBurned = 0.0;
   bool _isPermissionGranted = false;
   double _sleepHours = 0.0;
-  int? _steps = 0;
+  int _steps = 0;
+  Timer? _timer;
+  double _wellbeingScore = 0.0;
 
   double get caloriesBurned => _caloriesBurned;
   bool get isPermissionGranted => _isPermissionGranted;
   double get sleepHours => _sleepHours;
-  int? get steps => _steps;
+  int get steps => _steps;
+  double get wellbeingScore => _wellbeingScore;
+
+  HealthProvider() {
+    requestPermission();
+    _startAutoUpdate();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  /// Starts the timer to auto-update the health data.
+  void _startAutoUpdate() {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      updateHealthData();
+    });
+  }
+
+  /// Updates the health data.
+  Future<void> updateHealthData() async {
+    await fetchCalories();
+    await fetchSleepHours();
+    await fetchSteps();
+    calculateWellbeingScore();
+  }
 
   /// Request permission to access health data.
   Future<void> requestPermission() async {
@@ -18,7 +49,6 @@ class HealthProvider with ChangeNotifier {
 
     bool requested = await Health().requestAuthorization([
       HealthDataType.ACTIVE_ENERGY_BURNED,
-      HealthDataType.BODY_TEMPERATURE,
       HealthDataType.SLEEP_AWAKE,
       HealthDataType.SLEEP_DEEP,
       HealthDataType.SLEEP_IN_BED,
@@ -29,6 +59,33 @@ class HealthProvider with ChangeNotifier {
 
     _isPermissionGranted = requested;
     notifyListeners();
+  }
+
+  /// Calculates the wellbeing score based on calories burned, sleep hours, and steps.
+  ///
+  /// Returns:
+  /// - The calculated wellbeing score on a 100 scale.
+  void calculateWellbeingScore() {
+    double score = 0;
+    int count = 0;
+
+    if (_caloriesBurned > 0) {
+      score += (_caloriesBurned / 2000) *
+          100; // Assuming 2000 calories as the max value
+      count++;
+    }
+
+    if (_sleepHours > 0) {
+      score += (_sleepHours / 8) * 100; // Assuming 8 hours as the max value
+      count++;
+    }
+
+    if (_steps > 0) {
+      score += (_steps / 10000) * 100; // Assuming 10000 steps as the max value
+      count++;
+    }
+
+    _wellbeingScore = count > 0 ? score / count : 0;
   }
 
   /// Gets the calories burned for the current day.
@@ -91,7 +148,7 @@ class HealthProvider with ChangeNotifier {
     DateTime now = DateTime.now();
     DateTime midnight = DateTime(now.year, now.month, now.day);
 
-    _steps = await Health().getTotalStepsInInterval(midnight, now);
+    _steps = await Health().getTotalStepsInInterval(midnight, now) ?? 0;
     notifyListeners();
   }
 
