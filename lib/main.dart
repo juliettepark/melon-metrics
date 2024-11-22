@@ -1,39 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:health/health.dart';
+import 'package:melon_metrics/providers/health_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => HealthProvider(),
+    child: const MainApp(),
+  ));
 }
 
-void getHealthData() async {
-// configure the health plugin before use.
-  Health().configure();
-
-  // define the types to get
-  var types = [
-    HealthDataType.ACTIVE_ENERGY_BURNED,
-    HealthDataType.BODY_TEMPERATURE,
-    HealthDataType.STEPS,
-    HealthDataType.BLOOD_GLUCOSE,
-  ];
-
-  // requesting access to the data types before reading them
-  bool requested = await Health().requestAuthorization(types);
-
-  var now = DateTime.now();
-
-  // fetch health data from the last 24 hours
-  List<HealthDataPoint> healthData = await Health().getHealthDataFromTypes(
-      startTime: now.subtract(const Duration(days: 1)),
-      endTime: now,
-      types: types);
-
-  // get the number of steps for today
-  var midnight = DateTime(now.year, now.month, now.day);
-  int? steps = await Health().getTotalStepsInInterval(midnight, now);
-
-  // print the results
-  print('Steps: $steps');
+void getHealthData(BuildContext context) async {
+  HealthProvider healthProvider =
+      Provider.of<HealthProvider>(context, listen: false);
+  await healthProvider.updateHealthData();
+  print('Calories burned: ${healthProvider.caloriesBurned}');
+  print('Sleep hours: ${healthProvider.sleepHours}');
+  print('Steps: ${healthProvider.steps}');
+  print('Wellbeing score: ${healthProvider.wellbeingScore}');
 }
 
 class MainApp extends StatelessWidget {
@@ -41,12 +24,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
         body: Center(
           child: ElevatedButton(
-            onPressed: getHealthData,
-            child: Text('Get Health Data'),
+            onPressed: () => getHealthData(context),
+            child: const Text('Get Health Data'),
           ),
         ),
       ),
