@@ -12,13 +12,11 @@ void main() {
 void getHealthData(BuildContext context) async {
   HealthProvider healthProvider =
       Provider.of<HealthProvider>(context, listen: false);
-  await healthProvider.requestPermission();
-  await healthProvider.fetchCalories();
-  await healthProvider.fetchSleepHours();
-  await healthProvider.fetchSteps();
+  await healthProvider.updateHealthData();
   print('Calories burned: ${healthProvider.caloriesBurned}');
   print('Sleep hours: ${healthProvider.sleepHours}');
   print('Steps: ${healthProvider.steps}');
+  print('Wellbeing score: ${healthProvider.wellbeingScore}');
 }
 
 class MainApp extends StatelessWidget {
