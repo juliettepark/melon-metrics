@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:melon_metrics/providers/health_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:melon_metrics/views/settings_views.dart'; // Replace with the correct path to your file
+import 'package:melon_metrics/models/goal_setting.dart'; // Replace with the correct path
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => HealthProvider(),
-    child: const MainApp(),
-  ));
+  runApp(MyApp());
 }
 
-void getHealthData(BuildContext context) async {
-  HealthProvider healthProvider =
-      Provider.of<HealthProvider>(context, listen: false);
-  await healthProvider.updateHealthData();
-  print('Calories burned: ${healthProvider.caloriesBurned}');
-  print('Sleep hours: ${healthProvider.sleepHours}');
-  print('Steps: ${healthProvider.steps}');
-  print('Wellbeing score: ${healthProvider.wellbeingScore}');
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () => getHealthData(context),
-            child: const Text('Get Health Data'),
-          ),
-        ),
-      ),
+      title: 'Settings View Test',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: TestSettingsView(),
     );
+  }
+}
+
+class TestSettingsView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final testGoalSetting = GoalSetting(sleep: 7, steps: 10000, screenTime: 120);
+
+    return SettingsViews(entry: testGoalSetting);
   }
 }
