@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
+import 'package:melon_metrics/views/melon_metrics_app.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -27,14 +28,21 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () => getHealthData(context),
-            child: const Text('Get Health Data'),
-          ),
-        ),
+      home: 
+      // Scaffold(
+      //   body: Center(
+      //     child: ElevatedButton(
+      //       onPressed: () => getHealthData(context),
+      //       child: const Text('Get Health Data'),
+      //     ),
+      //   ),
+      // ),
+      const MelonMetricsApp(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        useMaterial3: true,
       ),
+      
     );
   }
 }
