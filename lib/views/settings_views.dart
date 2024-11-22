@@ -67,7 +67,7 @@ class _SettingsViewsState extends State<SettingsViews> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Sleep input field
-              Container(
+              SizedBox(
                 width: 200, // Adjust width of the form
                 child: Row(
                   children: [
@@ -92,7 +92,7 @@ class _SettingsViewsState extends State<SettingsViews> {
               ),
               const SizedBox(height: 10),
               // Steps input field
-              Container(
+              SizedBox(
                 width: 200,
                 child: Row(
                   children: [
@@ -117,7 +117,7 @@ class _SettingsViewsState extends State<SettingsViews> {
               ),
               const SizedBox(height: 10),
               // Screen Time input field
-              Container(
+              SizedBox(
                 width: 200,
                 child: Row(
                   children: [
