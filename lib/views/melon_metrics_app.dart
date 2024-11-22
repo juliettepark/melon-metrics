@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:melon_metrics/models/goal_setting.dart';
 import 'package:melon_metrics/views/home_view.dart';
-import 'package:melon_metrics/views/settings_view_temp.dart';
+import 'package:melon_metrics/views/settings_views.dart';
 
 // Inspiried by navigation code from lecture
 class MelonMetricsApp extends StatefulWidget {
@@ -18,10 +19,10 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('owl power'),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   // title: Text('owl power'),
+      // ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index){
           setState((){ // Executes code and then causes widget to re-build()
@@ -44,7 +45,7 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
       body: Center(child: 
         switch (_currentTabIndex) {
           0 => const HomeView(),
-          1 => const SettingsViewTemp(),
+          1 => SettingsViews( entry: GoalSetting(screenTime: 7, sleep: 5, steps: 1000),),
           _ => const Placeholder(),
         }
       )

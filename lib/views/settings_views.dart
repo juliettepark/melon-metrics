@@ -121,7 +121,7 @@ class _SettingsViewsState extends State<SettingsViews> {
                 width: 200,
                 child: Row(
                   children: [
-                    const Text('Screen Time: ', style: TextStyle(fontSize: 16)),
+                    const Text('Calories: ', style: TextStyle(fontSize: 16)),
                     Expanded(
                       child: TextFormField(
                         initialValue: currentScreenTime.toString(),

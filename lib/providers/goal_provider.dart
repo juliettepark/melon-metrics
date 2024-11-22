@@ -24,5 +24,4 @@ class GoalProvider extends ChangeNotifier {
     screenTime = newScreenTime;
     notifyListeners();
   }
-  
 }
