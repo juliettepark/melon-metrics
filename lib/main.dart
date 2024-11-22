@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
+import 'package:melon_metrics/providers/weather_provider.dart';
 import 'package:melon_metrics/views/melon_metrics_app.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => HealthProvider(),
-    child: const MainApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => HealthProvider()),
+        ChangeNotifierProvider(create: (context) => GoalProvider()),
+        ChangeNotifierProvider(create: (context) => WeatherProvider())
+      ],
+      child: const MainApp(),
+      )
+    );
 }
 
 void getHealthData(BuildContext context) async {
