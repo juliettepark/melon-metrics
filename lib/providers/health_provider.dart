@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
+import 'package:melon_metrics/providers/goal_provider.dart';
+import 'package:provider/provider.dart';
 
 class HealthProvider with ChangeNotifier {
   double _caloriesBurned = 0.0;
@@ -10,6 +12,10 @@ class HealthProvider with ChangeNotifier {
   int _steps = 0;
   Timer? _timer;
   double _wellbeingScore = 0.0;
+
+  int _goalSleepHours = 8;
+  int _goalSteps = 10000;
+  int _goalCalories = 2000;
 
   double get caloriesBurned => _caloriesBurned;
   bool get isPermissionGranted => _isPermissionGranted;
@@ -70,18 +76,17 @@ class HealthProvider with ChangeNotifier {
     int count = 0;
 
     if (_caloriesBurned > 0) {
-      score += (_caloriesBurned / 2000) *
-          100; // Assuming 2000 calories as the max value
+      score += (_caloriesBurned / _goalCalories) * 100;
       count++;
     }
 
     if (_sleepHours > 0) {
-      score += (_sleepHours / 8) * 100; // Assuming 8 hours as the max value
+      score += (_sleepHours / _goalSleepHours) * 100;
       count++;
     }
 
     if (_steps > 0) {
-      score += (_steps / 10000) * 100; // Assuming 10000 steps as the max value
+      score += (_steps / _goalSteps) * 100;
       count++;
     }
 
@@ -166,5 +171,17 @@ class HealthProvider with ChangeNotifier {
       sum += value.numericValue;
     }
     return sum;
+  }
+
+  /// Updates the current goals from the goal provider.
+  ///
+  /// Parameters:
+  /// - context: The build context.
+  void updateGoals(BuildContext context) {
+    GoalProvider goalProvider =
+        Provider.of<GoalProvider>(context, listen: false);
+    _goalSleepHours = goalProvider.sleepHours;
+    _goalSteps = goalProvider.steps;
+    _goalCalories = goalProvider.calories;
   }
 }

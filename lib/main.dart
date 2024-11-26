@@ -6,16 +6,14 @@ import 'package:melon_metrics/views/melon_metrics_app.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => HealthProvider()),
-        ChangeNotifierProvider(create: (context) => GoalProvider()),
-        ChangeNotifierProvider(create: (context) => WeatherProvider())
-      ],
-      child: const MainApp(),
-      )
-    );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => HealthProvider()),
+      ChangeNotifierProvider(create: (context) => GoalProvider()),
+      ChangeNotifierProvider(create: (context) => WeatherProvider())
+    ],
+    child: const MainApp(),
+  ));
 }
 
 void getHealthData(BuildContext context) async {
@@ -34,21 +32,20 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: 
-      // Scaffold(
-      //   body: Center(
-      //     child: ElevatedButton(
-      //       onPressed: () => getHealthData(context),
-      //       child: const Text('Get Health Data'),
-      //     ),
-      //   ),
-      // ),
-      const MelonMetricsApp(),
+      home:
+          // Scaffold(
+          //   body: Center(
+          //     child: ElevatedButton(
+          //       onPressed: () => getHealthData(context),
+          //       child: const Text('Get Health Data'),
+          //     ),
+          //   ),
+          // ),
+          const MelonMetricsApp(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      
     );
   }
 }

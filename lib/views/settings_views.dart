@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/models/goal_setting.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
+import 'package:melon_metrics/providers/health_provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingsViews extends StatefulWidget {
@@ -15,14 +16,14 @@ class SettingsViews extends StatefulWidget {
 class _SettingsViewsState extends State<SettingsViews> {
   late int currentSleep;
   late int currentSteps;
-  late int currentScreenTime;
+  late int currentCalories;
 
   @override
   void initState() {
     super.initState();
-    currentSleep = widget.entry.sleep;
+    currentSleep = widget.entry.sleepHours;
     currentSteps = widget.entry.steps;
-    currentScreenTime = widget.entry.screenTime;
+    currentCalories = widget.entry.calories;
   }
 
   @override
@@ -35,14 +36,14 @@ class _SettingsViewsState extends State<SettingsViews> {
           tooltip: 'Cancel',
           onPressed: () => Navigator.pop(context), // Navigate back to main page
         ),
-
         flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey, width: 1), // Add the bar here
-              ),
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom:
+                  BorderSide(color: Colors.grey, width: 1), // Add the bar here
             ),
           ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -51,7 +52,8 @@ class _SettingsViewsState extends State<SettingsViews> {
           children: [
             // Sleep input field
             Row(
-              mainAxisAlignment: MainAxisAlignment.center, // Center align the row
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Center align the row
               children: [
                 const Text('Sleep: ', style: TextStyle(fontSize: 16)),
                 SizedBox(
@@ -60,7 +62,8 @@ class _SettingsViewsState extends State<SettingsViews> {
                     initialValue: currentSleep.toString(),
                     decoration: const InputDecoration(
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
@@ -84,7 +87,8 @@ class _SettingsViewsState extends State<SettingsViews> {
                     initialValue: currentSteps.toString(),
                     decoration: const InputDecoration(
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
@@ -105,15 +109,17 @@ class _SettingsViewsState extends State<SettingsViews> {
                 SizedBox(
                   width: 150,
                   child: TextFormField(
-                    initialValue: currentScreenTime.toString(),
+                    initialValue: currentCalories.toString(),
                     decoration: const InputDecoration(
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (value) {
                       setState(() {
-                        currentScreenTime = int.tryParse(value) ?? currentScreenTime;
+                        currentCalories =
+                            int.tryParse(value) ?? currentCalories;
                       });
                     },
                   ),
@@ -125,12 +131,11 @@ class _SettingsViewsState extends State<SettingsViews> {
             ElevatedButton(
               onPressed: () {
                 // Update goals using the provider
-                Provider.of<GoalProvider>(context, listen: false).updateGoals(
-                  currentSleep,
-                  currentSteps,
-                  currentScreenTime
-                );
-                // Navigator.pop(context); // Optionally navigate back
+                Provider.of<GoalProvider>(context, listen: false)
+                    .updateGoals(currentSleep, currentSteps, currentCalories);
+                Provider.of<HealthProvider>(context, listen: false)
+                    .updateGoals(context);
+                Navigator.pop(context); // Optionally navigate back
               },
               child: const Text('Save'),
             ),

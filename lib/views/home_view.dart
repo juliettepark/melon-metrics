@@ -46,13 +46,13 @@ class HomeView extends StatelessWidget {
         );
       }
 
-      // Consumer<GoalProvider>(
-      // builder: (context, goalProvider, child) {
-      //   return (
-      //     Text("Sleep: ${goalProvider.sleep.toString()}")
-      //   );
-      // }
+        // Consumer<GoalProvider>(
+        // builder: (context, goalProvider, child) {
+        //   return (
+        //     Text("Sleep: ${goalProvider.sleep.toString()}")
+        //   );
+        // }
 
-    );
+        );
   }
 }
