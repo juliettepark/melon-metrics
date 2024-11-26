@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:melon_metrics/views/progress_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
@@ -29,6 +30,13 @@ class HomeView extends StatelessWidget {
             children: [
                 Text("Sleep: ${goalProvider.sleep.toString()}, \n Screen time ${goalProvider.screenTime.toString()} \n Steps: ${goalProvider.steps.toString()} \n"),
                 Text("Sleep: ${healthProvider.sleepHours.toString()}, \n Steps ${healthProvider.steps.toString()} \n Calories burned: ${healthProvider.caloriesBurned.toString()} \n"),
+                // LinearProgressIndicator(
+                //   value: 3/5,
+                //   backgroundColor: Colors.grey[300],
+                //   color: Colors.blue,
+                //   minHeight: 100,
+                // ),
+                ProgressBar(barIcon: Icons.night_shelter, goal: 5.0, actual: 3.0),
                 ElevatedButton(
                   onPressed: () => getHealthData(context),
                   child: const Text('Refresh Health Data'),
