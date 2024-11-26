@@ -20,7 +20,8 @@ class GoalProvider extends ChangeNotifier {
   ///     -newScreenTime: new screen time goal
   void updateGoals(int newSleep, int newSteps, int newScreenTime) {
     sleep = newSleep;
-    newSteps = steps;
+    // newSteps = steps;
+    steps = newSteps;
     screenTime = newScreenTime;
     notifyListeners();
   }

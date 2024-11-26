@@ -130,7 +130,7 @@ class _SettingsViewsState extends State<SettingsViews> {
                   currentSteps,
                   currentScreenTime
                 );
-                Navigator.pop(context); // Optionally navigate back
+                // Navigator.pop(context); // Optionally navigate back
               },
               child: const Text('Save'),
             ),
