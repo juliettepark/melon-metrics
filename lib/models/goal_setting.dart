@@ -1,28 +1,16 @@
-
-
 class GoalSetting {
-
-  // hours of sleep
-  final int sleep;
-
-  // number of steps
+  final int sleepHours;
   final int steps;
-
-  // screen time
-  final int screenTime;
+  final int calories;
 
   /// factory constructor that creates an entry from a text entry
-  factory GoalSetting.fromText({int sleep = 0, int steps = 0, int screenTime = 0}) {
+  factory GoalSetting.fromText(
+      {int sleepHours = 0, int steps = 0, int calories = 0}) {
     return GoalSetting(
-        sleep: sleep,
-        steps: steps,
-        screenTime: screenTime);
+        sleepHours: sleepHours, steps: steps, calories: calories);
   }
 
   /// Creates a Goal setting entry
   GoalSetting(
-      {required this.sleep,
-       required this.steps,
-       required this.screenTime});
-
+      {required this.sleepHours, required this.steps, required this.calories});
 }
