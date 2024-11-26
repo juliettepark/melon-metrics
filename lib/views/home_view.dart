@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-                Text("Sleep: ${goalProvider.sleep.toString()}, \n Screen time ${goalProvider.screenTime.toString()} \n Steps: ${goalProvider.steps.toString()} \n"),
+                Text("Sleep: ${goalProvider.sleepHours.toString()}, \n Steps ${goalProvider.steps.toString()} \n Calories burned: ${goalProvider.calories.toString()} \n"),
                 Text("Sleep: ${healthProvider.sleepHours.toString()}, \n Steps ${healthProvider.steps.toString()} \n Calories burned: ${healthProvider.caloriesBurned.toString()} \n"),
                 // LinearProgressIndicator(
                 //   value: 3/5,
