@@ -19,32 +19,33 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return const Text('This is Home View');
-    return 
-      Consumer2<HealthProvider, GoalProvider>(
-      builder: (context, healthProvider, goalProvider, child) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-                Text("Sleep: ${goalProvider.sleep.toString()}, \n Screen time ${goalProvider.screenTime.toString()} \n Steps: ${goalProvider.steps.toString()} \n"),
-                Text("Sleep: ${healthProvider.sleepHours.toString()}, \n Steps ${healthProvider.steps.toString()} \n Calories burned: ${healthProvider.caloriesBurned.toString()} \n"),
-                ElevatedButton(
-                  onPressed: () => getHealthData(context),
-                  child: const Text('Refresh Health Data'),
-                ),
-            ],
-          ),
+    return Consumer2<HealthProvider, GoalProvider>(
+        builder: (context, healthProvider, goalProvider, child) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+                "Sleep: ${goalProvider.sleepHours.toString()}, \n Calories ${goalProvider.calories.toString()} \n Steps: ${goalProvider.steps.toString()} \n"),
+            Text(
+                "Sleep: ${healthProvider.sleepHours.toString()}, \n Steps ${healthProvider.steps.toString()} \n Calories burned: ${healthProvider.caloriesBurned.toString()} \n"),
+            ElevatedButton(
+              onPressed: () => getHealthData(context),
+              child: const Text('Refresh Health Data'),
+            ),
+          ],
+        ),
+      );
+    }
+
+        // Consumer<GoalProvider>(
+        // builder: (context, goalProvider, child) {
+        //   return (
+        //     Text("Sleep: ${goalProvider.sleep.toString()}")
+        //   );
+        // }
+
         );
-      }
-
-      // Consumer<GoalProvider>(
-      // builder: (context, goalProvider, child) {
-      //   return (
-      //     Text("Sleep: ${goalProvider.sleep.toString()}")
-      //   );
-      // }
-
-    );
   }
 }
