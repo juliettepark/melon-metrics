@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// A provider class for managing a journal, extending ChangeNotifier to allow listeners to be notified of changes.
+/// A provider class for managing goals, extending ChangeNotifier to allow listeners to be notified of changes.
 class GoalProvider extends ChangeNotifier {
 
   // goal hours of sleep

@@ -12,6 +12,7 @@ dependencies:
   health: ^11.1.0
   http: ^1.2.2
   provider: ^6.1.2
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:
