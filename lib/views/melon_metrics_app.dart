@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/models/goal_setting.dart';
+import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/views/home_view.dart';
 import 'package:melon_metrics/views/settings_views.dart';
+import 'package:provider/provider.dart';
 
 // Inspiried by navigation code from lecture
 class MelonMetricsApp extends StatefulWidget {
@@ -42,10 +44,16 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
       ),
       
       // Here we choose how to populate the body using the current value of _currentTabIndex
+      // Consumer2<HealthProvider, GoalProvider>(
+      // builder: (context, healthProvider, goalProvider, child) {
       body: Center(child: 
         switch (_currentTabIndex) {
           0 => const HomeView(),
-          1 => SettingsViews( entry: GoalSetting(screenTime: 7, sleep: 5, steps: 1000),),
+          1 => Consumer<GoalProvider>(
+            builder: (context, goalProvider, child) {
+              return SettingsViews( entry: GoalSetting(screenTime: goalProvider.screenTime, sleep: goalProvider.sleep, steps: goalProvider.steps) );
+            }
+          ),
           _ => const Placeholder(),
         }
       )
