@@ -40,13 +40,16 @@ class HomeView extends StatelessWidget {
                       flex: 1,
                       child: ProgressBar()
                     ),
-                    // SizedBox(50),
+                    
                     Expanded(
                       flex: 3,
                       child: Container(
                         // color: Colors.purple,
                         // child: Text('Row piece 2'),
-                        child: WeatherWidget(),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: WeatherWidget(),
+                        ),
                       )
                     )
                   ],
@@ -65,7 +68,11 @@ class HomeView extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(50)
                   ),
-                  child: const Image(image: AssetImage('assets/good.png'), width: double.infinity,)
+                  // child: const Image(image: AssetImage('assets/good.png'), width: double.infinity,)
+                  child: const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Image(image: AssetImage('assets/cheer.gif'),),
+                  )
                 )
               ),
           

@@ -22,7 +22,7 @@ class ProgressBar extends StatelessWidget {
         makeSingleBar(barIcon: Icons.nightlight, 
                       goal: singleUseGoalProvider.sleepHours.toDouble(), 
                       actual: singleUseHealthProvider.sleepHours, 
-                      fillBar:Colors.purple.shade200),
+                      fillBar:Theme.of(context).colorScheme.inversePrimary),
         makeSingleBar(barIcon: Icons.directions_walk_rounded, 
                       goal: singleUseGoalProvider.steps.toDouble(), 
                       actual: singleUseHealthProvider.steps.toDouble(), 

@@ -94,7 +94,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             ),
             elevation: 5,
             shadowColor: Colors.grey,
-            color: Colors.deepOrange.shade100,
+            color: Theme.of(context).colorScheme.surfaceTint,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -102,11 +102,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 children: [
                   Text(
                     textToShow,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 24, 
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
                   const SizedBox(width: 10),
-                  Icon(iconToShow, size: 30),
+                  Icon(iconToShow, size: 30, color: Theme.of(context).colorScheme.onPrimary,),
                 ],
               ),
             ),
