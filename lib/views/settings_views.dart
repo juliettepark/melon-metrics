@@ -105,7 +105,7 @@ class _SettingsViewsState extends State<SettingsViews> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Screen Time: ', style: TextStyle(fontSize: 16)),
+                const Text('Calories: ', style: TextStyle(fontSize: 16)),
                 SizedBox(
                   width: 150,
                   child: TextFormField(
@@ -135,7 +135,7 @@ class _SettingsViewsState extends State<SettingsViews> {
                     .updateGoals(currentSleep, currentSteps, currentCalories);
                 Provider.of<HealthProvider>(context, listen: false)
                     .updateGoals(context);
-                Navigator.pop(context); // Optionally navigate back
+                // Navigator.pop(context); // Optionally navigate back
               },
               child: const Text('Save'),
             ),

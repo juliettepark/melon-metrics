@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/models/goal_setting.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
+import 'package:melon_metrics/views/calendar_view.dart';
 import 'package:melon_metrics/views/home_view.dart';
 import 'package:melon_metrics/views/settings_views.dart';
 import 'package:provider/provider.dart';
@@ -36,17 +37,15 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
 
           // This defines what is in the nav bar
           destinations: const <Widget>[
-            NavigationDestination(icon: Icon(Icons.home), label: 'Widget 1'),
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
             NavigationDestination(
-                icon: Icon(Icons.settings), label: 'Widget 2'),
-            // NavigationDestination(icon: Icon(Icons.donut_large_outlined), label: 'Widget 3'),
+                icon: Icon(Icons.settings), label: 'Settings'),
+            NavigationDestination(icon: Icon(Icons.calendar_month), label: 'Calendar'),
             // NavigationDestination(icon: Icon(Icons.phone), label: 'Widget 4'),
           ],
         ),
 
-        // Here we choose how to populate the body using the current value of _currentTabIndex
-        // Consumer2<HealthProvider, GoalProvider>(
-        // builder: (context, healthProvider, goalProvider, child) {
+
         body: Center(
             child: switch (_currentTabIndex) {
           0 => const HomeView(),
@@ -57,6 +56,7 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
                       sleepHours: goalProvider.sleepHours,
                       steps: goalProvider.steps));
             }),
+          2 => const CalendarPage(),
           _ => const Placeholder(),
         }));
   }
