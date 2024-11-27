@@ -96,6 +96,10 @@ class ProgressBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
             ),
           ),
+          Expanded(child: Padding(
+            padding: const EdgeInsets.only( left: 8.0),
+            child: Text('(${actual.toInt()} / ${goal.toInt()})'),
+          ))
         ],
       ),
     );

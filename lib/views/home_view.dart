@@ -37,7 +37,7 @@ class HomeView extends StatelessWidget {
                   children: [
                     // ALL STATS CONTAINER
                     const Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: ProgressBar()
                     ),
                     
