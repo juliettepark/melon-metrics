@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/views/progress_bar.dart';
+import 'package:melon_metrics/views/weather_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
@@ -38,68 +39,14 @@ class HomeView extends StatelessWidget {
                     const Expanded(
                       flex: 1,
                       child: ProgressBar()
-                      
-                      // Column(
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(bottom: 8.0),
-                      //       child: Row(
-                      //         children: [
-                      //           Icon(Icons.nightlight, size: 30,),
-                      //           Expanded(
-                      //             child: LinearProgressIndicator(
-                      //               value: 3/5,
-                      //               backgroundColor: Colors.grey[300],
-                      //               color: Colors.amber.shade200,
-                      //               minHeight: 20,
-                      //               borderRadius: BorderRadius.circular(50),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(bottom: 8.0),
-                      //       child: Row(
-                      //         children: [
-                      //           Icon(Icons.nightlight, size: 30,),
-                      //           Expanded(
-                      //             child: LinearProgressIndicator(
-                      //               value: 3/5,
-                      //               backgroundColor: Colors.grey[300],
-                      //               color: Colors.amber.shade200,
-                      //               minHeight: 20,
-                      //               borderRadius: BorderRadius.circular(50),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     Padding(
-                      //       padding: const EdgeInsets.only(bottom: 8.0),
-                      //       child: Row(
-                      //         children: [
-                      //           Icon(Icons.nightlight, size: 30,),
-                      //           Expanded(
-                      //             child: LinearProgressIndicator(
-                      //               value: 3/5,
-                      //               backgroundColor: Colors.grey[300],
-                      //               color: Colors.amber.shade200,
-                      //               minHeight: 20,
-                      //               borderRadius: BorderRadius.circular(50),
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ],
-                      // )
                     ),
+                    // SizedBox(50),
                     Expanded(
                       flex: 3,
                       child: Container(
-                        color: Colors.purple,
-                        child: Text('Row piece 2'),
+                        // color: Colors.purple,
+                        // child: Text('Row piece 2'),
+                        child: WeatherWidget(),
                       )
                     )
                   ],
@@ -110,7 +57,14 @@ class HomeView extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Container(
-                  color: Colors.pink,
+                  // color: Colors.pink,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.surfaceTint,
+                      width: 5,
+                    ),
+                    borderRadius: BorderRadius.circular(50)
+                  ),
                   child: const Image(image: AssetImage('assets/good.png'), width: double.infinity,)
                 )
               ),

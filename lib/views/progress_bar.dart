@@ -19,18 +19,22 @@ class ProgressBar extends StatelessWidget {
     final singleUseGoalProvider = Provider.of<GoalProvider>(context, listen:false);
     return Column(
       children: [
-        makeSingleBar(Icons.nightlight, 
-                      singleUseGoalProvider.sleepHours.toDouble(), 
-                      singleUseHealthProvider.sleepHours, 
-                      Colors.purple.shade200),
-        makeSingleBar(Icons.directions_walk_rounded, 
-                      singleUseGoalProvider.steps.toDouble(), 
-                      singleUseHealthProvider.steps.toDouble(), 
-                      Colors.pink.shade100),
-        makeSingleBar(Icons.fireplace_outlined, 
-                      singleUseGoalProvider.calories.toDouble(),
-                      singleUseHealthProvider.caloriesBurned, 
-                      Colors.amber.shade200),
+        makeSingleBar(barIcon: Icons.nightlight, 
+                      goal: singleUseGoalProvider.sleepHours.toDouble(), 
+                      actual: singleUseHealthProvider.sleepHours, 
+                      fillBar:Colors.purple.shade200),
+        makeSingleBar(barIcon: Icons.directions_walk_rounded, 
+                      goal: singleUseGoalProvider.steps.toDouble(), 
+                      actual: singleUseHealthProvider.steps.toDouble(), 
+                      fillBar: Theme.of(context).colorScheme.surfaceTint),
+        // makeSingleBar(Icons.fireplace_outlined, 
+        //               singleUseGoalProvider.calories.toDouble(),
+        //               singleUseHealthProvider.caloriesBurned, 
+        //               Colors.amber.shade200),
+        makeSingleBar(barIcon: Icons.fireplace_outlined, 
+                      goal: 500,
+                      actual: 200, 
+                      fillBar: Colors.amber.shade200),
       ],
     );
     
@@ -57,7 +61,10 @@ class ProgressBar extends StatelessWidget {
     // );
   }
 
-  Widget makeSingleBar(IconData barIcon, double goal, double actual, Color fillBar) {
+  Widget makeSingleBar({required IconData barIcon, 
+                        required double goal, 
+                        required double actual, 
+                        required Color fillBar}) {
     // Calculate the progress as a percentage
     double progress;
 
