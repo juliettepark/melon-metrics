@@ -21,7 +21,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // return const Text('This is Home View');
-    return 
+    return
       Consumer2<HealthProvider, GoalProvider>(
       builder: (context, healthProvider, goalProvider, child) {
         return Padding(
@@ -40,7 +40,6 @@ class HomeView extends StatelessWidget {
                       flex: 2,
                       child: ProgressBar()
                     ),
-                    
                     Expanded(
                       flex: 3,
                       child: Container(
@@ -55,7 +54,7 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-          
+
               // Animation
               Expanded(
                 flex: 4,
@@ -75,7 +74,7 @@ class HomeView extends StatelessWidget {
                   )
                 )
               ),
-          
+
               // Refresh button
               ElevatedButton(
                 onPressed: () => getHealthData(context),
@@ -93,7 +92,7 @@ class HomeView extends StatelessWidget {
             ],
           ),
         );
-        
+
         // Column(
         //   mainAxisAlignment: MainAxisAlignment.center,
         //   crossAxisAlignment: CrossAxisAlignment.center,

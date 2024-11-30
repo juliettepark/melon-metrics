@@ -7,6 +7,7 @@ environment:
   sdk: ^3.5.3
 
 dependencies:
+  flame: ^1.21.0
   flutter:
     sdk: flutter
   health: ^11.1.0
@@ -24,3 +25,4 @@ flutter:
   assets:
     - assets/good.png
     - assets/cheer.gif
+    - assets/images/owl/
