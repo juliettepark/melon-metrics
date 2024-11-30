@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:melon_metrics/models/virtual_pet_animation_config.dart';
 import 'package:melon_metrics/models/virtual_pet_animation_state.dart';
 import 'dart:async';
@@ -6,9 +7,10 @@ import 'dart:async';
 import 'package:melon_metrics/models/virtual_pet_game.dart';
 
 const double virtualPetSize = 200;
+bool userTriggeredAnimation = false;
 
 class VirtualPetAnimation extends SpriteAnimationComponent
-    with HasGameRef<VirtualPetGame> {
+    with HasGameRef<VirtualPetGame>, TapCallbacks {
   static final VirtualPetAnimationDataConfig _animationDataConfig =
       VirtualPetAnimationDataConfig();
 
@@ -28,6 +30,19 @@ class VirtualPetAnimation extends SpriteAnimationComponent
 
   VirtualPetAnimation() : super(size: Vector2.all(virtualPetSize)) {
     debugMode = true;
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    // Trigger jump animation on tap
+    userTriggeredAnimation = true; // Flag to prevent walkCycle logic during user input
+    changeState(VirtualPetAnimationState.jump);
+
+    // Revert to idle animation after jump completes and re-enable walkCycle logic
+    Future.delayed(const Duration(seconds: 2, microseconds: 400), () {
+      userTriggeredAnimation = false;
+      changeState(VirtualPetAnimationState.idle);
+    });
   }
 
   void changeState(VirtualPetAnimationState animationState) {
@@ -69,6 +84,8 @@ class VirtualPetAnimation extends SpriteAnimationComponent
   @override
   Future<void> update(double dt) async {
     super.update(dt);
+
+    if (userTriggeredAnimation) return;
 
     if (direction == 1) {
       position.x += 1;
