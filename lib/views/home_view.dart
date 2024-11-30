@@ -1,4 +1,6 @@
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:melon_metrics/models/inherited_virtual_pet_game_wrapper.dart';
 import 'package:melon_metrics/views/progress_bar.dart';
 import 'package:melon_metrics/views/weather_widget.dart';
 import 'package:provider/provider.dart';
@@ -68,9 +70,11 @@ class HomeView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50)
                   ),
                   // child: const Image(image: AssetImage('assets/good.png'), width: double.infinity,)
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Image(image: AssetImage('assets/cheer.gif'),),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GameWidget(
+                      game: InheritedVirtualPetGameWrapper.of(context).virtualPetGame,
+                    ),
                   )
                 )
               ),

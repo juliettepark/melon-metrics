@@ -7,17 +7,10 @@ class VirtualPetGame extends FlameGame {
   final VirtualPetData virtualPetData = VirtualPetData();
 
   @override
-  Color backgroundColor() => Colors.red;
+  Color backgroundColor() => const Color(0x00000000); // Flame defaults to black for some reason. This is transparent
 
   @override
   Future<void> onLoad() async {
-    // add(HealthTimer());
-    // add(HealthBar());
-
-    // add(LevelTimer());
-    // add(LevelBar());
-
-    // add(WalkTimer());
 
     add(VirtualPet());
 
