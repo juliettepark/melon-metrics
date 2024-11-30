@@ -78,11 +78,11 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         WeatherCondition.sunny => Icons.wb_sunny,
       };
       final textToShow = switch (condition) {
-        WeatherCondition.gloomy => 'It is gloomy outside! Do some wall sits!',
+        WeatherCondition.gloomy => 'It is gloomy outside! \n Do some wall sits!',
         WeatherCondition.rainy =>
-          'It is raining outside! Find a gym to workout!',
+          'It is raining outside! \n Find a gym to workout!',
         WeatherCondition.sunny =>
-          'It is sunny outside! Let\'s do some outdoor activities!',
+          'It is sunny outside! \n Let\'s do some outdoor \n activities!',
       };
 
       return Center(

@@ -31,11 +31,11 @@ class _SettingsViewsState extends State<SettingsViews> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Goal Setting'),
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          tooltip: 'Cancel',
-          onPressed: () => Navigator.pop(context), // Navigate back to main page
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.close),
+        //   tooltip: 'Cancel',
+        //   onPressed: () => Navigator.pop(context), // Navigate back to main page
+        // ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             border: Border(

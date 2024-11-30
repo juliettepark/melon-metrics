@@ -1,4 +1,10 @@
+import 'package:isar/isar.dart';
+part 'goal_setting.g.dart';
+
+@collection
 class GoalSetting {
+  // ID for Isar to track
+  Id? id;
   final int sleepHours;
   final int steps;
   final int calories;
