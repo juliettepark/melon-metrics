@@ -8,35 +8,56 @@ class ProgressBar extends StatelessWidget {
   // IconData barIcon;
   // double goal;
   // double actual;
-  // HealthProvider healthProvider;
-  // GoalProvider goalProvider;
-  // ProgressBar({super.key, required this.healthProvider, required this.goalProvider});
-  const ProgressBar({super.key});
+  HealthProvider healthProvider;
+  GoalProvider goalProvider;
+  ProgressBar({super.key, required this.healthProvider, required this.goalProvider});
+  // const ProgressBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     final singleUseHealthProvider = Provider.of<HealthProvider>(context, listen:false);
     final singleUseGoalProvider = Provider.of<GoalProvider>(context, listen:false);
+
     return Column(
       children: [
         makeSingleBar(barIcon: Icons.nightlight, 
                       goal: singleUseGoalProvider.sleepHours.toDouble(), 
-                      actual: singleUseHealthProvider.sleepHours, 
+                      actual: goalProvider.sleepHours.toDouble(), 
                       fillBar:Theme.of(context).colorScheme.inversePrimary),
         makeSingleBar(barIcon: Icons.directions_walk_rounded, 
-                      goal: singleUseGoalProvider.steps.toDouble(), 
-                      actual: singleUseHealthProvider.steps.toDouble(), 
+                      goal: goalProvider.steps.toDouble(), 
+                      actual: healthProvider.steps.toDouble(), 
                       fillBar: Theme.of(context).colorScheme.surfaceTint),
-        // makeSingleBar(Icons.fireplace_outlined, 
-        //               singleUseGoalProvider.calories.toDouble(),
-        //               singleUseHealthProvider.caloriesBurned, 
-        //               Colors.amber.shade200),
         makeSingleBar(barIcon: Icons.fireplace_outlined, 
-                      goal: 500,
-                      actual: 200, 
+                      goal: goalProvider.calories.toDouble(),
+                      actual: healthProvider.caloriesBurned, 
                       fillBar: Colors.amber.shade200),
+        // makeSingleBar(barIcon: Icons.fireplace_outlined, 
+        //               goal: 500,
+        //               actual: 200, 
+        //               fillBar: Colors.amber.shade200),
       ],
     );
+    // return Column(
+    //   children: [
+    //     makeSingleBar(barIcon: Icons.nightlight, 
+    //                   goal: singleUseGoalProvider.sleepHours.toDouble(), 
+    //                   actual: singleUseHealthProvider.sleepHours, 
+    //                   fillBar:Theme.of(context).colorScheme.inversePrimary),
+    //     makeSingleBar(barIcon: Icons.directions_walk_rounded, 
+    //                   goal: singleUseGoalProvider.steps.toDouble(), 
+    //                   actual: singleUseHealthProvider.steps.toDouble(), 
+    //                   fillBar: Theme.of(context).colorScheme.surfaceTint),
+    //     makeSingleBar(barIcon: Icons.fireplace_outlined, 
+    //                   goal: singleUseGoalProvider.calories.toDouble(),
+    //                   actual: singleUseHealthProvider.caloriesBurned, 
+    //                   fillBar: Colors.amber.shade200),
+    //     // makeSingleBar(barIcon: Icons.fireplace_outlined, 
+    //     //               goal: 500,
+    //     //               actual: 200, 
+    //     //               fillBar: Colors.amber.shade200),
+    //   ],
+    // );
     
     // Column(
     //   mainAxisAlignment: MainAxisAlignment.center,

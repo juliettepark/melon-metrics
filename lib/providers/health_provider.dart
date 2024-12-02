@@ -47,6 +47,7 @@ class HealthProvider with ChangeNotifier {
     await fetchSleepHours();
     await fetchSteps();
     calculateWellbeingScore();
+    notifyListeners();
   }
 
   /// Request permission to access health data.

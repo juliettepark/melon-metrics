@@ -38,9 +38,9 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // ALL STATS CONTAINER
-                    const Expanded(
+                    Expanded(
                       flex: 2,
-                      child: ProgressBar()
+                      child: ProgressBar(healthProvider: healthProvider, goalProvider: goalProvider)
                     ),
                     Expanded(
                       flex: 3,
