@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:melon_metrics/providers/health_provider.dart';
+import "package:melon_metrics/models/daily_condition.dart";
+import 'package:isar/isar.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
+
+  final Isar isar;
+
+  const CalendarPage({super.key, required this.isar});
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    _updateDayConditions(); // Populate the map on initialization
+  }
+
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -27,18 +42,23 @@ class _CalendarPageState extends State<CalendarPage> {
     'poor': Colors.red,
   };
 
-  // Event loader to fetch condition for a day
+  /// Event loader to fetch condition for a day
+  /// 
+  /// Parameters:
+  ///     -day: specific date to fetch condition
   String? _getConditionForDay(DateTime day) {
     // format the day to only include year, month, and day
     DateTime formatDay = DateTime(day.year, day.month, day.day);
     return _dayConditions[formatDay];
   }
 
+  /// Add a new condition 
   void addConditionForDay(DateTime day, String condition) {
     DateTime formatDay = DateTime(day.year, day.month, day.day);
     _dayConditions[formatDay] = condition;
   }
 
+// Displays the keys of the calendar
 Widget _buildKeySection() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -63,9 +83,13 @@ Widget _buildKeySection() {
               Container(
                 width: 16,
                 height: 16,
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
+                decoration: BoxDecoration(
+                  color: Colors.white,
                   shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.blue, // Blue border
+                    width: 2, // Border width
+                  ),
                 ),
               ),
               const SizedBox(width: 4),
@@ -140,21 +164,93 @@ Widget _buildKeySection() {
   );
 }
 
+/// Updates the calendar with saved conditions of our user
+/// 
+/// This will pull from our user's history and build a calendar of
+/// color coded conditions
+Future<void> _updateDayConditions() async {
+  // Fetch all saved conditions from the database
+  final history = widget.isar.dailyConditions.where().findAllSync();
+
+  // Update the _dayConditions map
+  setState(() {
+    //_dayConditions.clear(); // Clear existing entries
+    for (var entry in history) {
+      _dayConditions[DateTime(entry.date.year, entry.date.month, entry.date.day)] = entry.condition;
+    }
+  });
+}
+
+/// Save today's condition of the user
+/// 
+/// Parameters: 
+///     condition: given condition of the user
+/// 
+/// This will save the user's condition in the isar database for today's 
+/// date and return a success message
+Future<void> _saveCondition(String condition) async {
+  final today = DateTime.now();
+  final conditionEntry = DailyCondition()
+    ..date = DateTime(today.year, today.month, today.day)
+    ..condition = condition;
+
+  await widget.isar.writeTxn(() async {
+    // Check if a condition already exists for the same date
+    final existingEntry = await widget.isar.dailyConditions
+        .filter()
+        .dateEqualTo(conditionEntry.date)
+        .findFirst();
+
+    if (existingEntry != null) {
+      // Update the existing entry
+      conditionEntry.id = existingEntry.id;
+    }
+
+    // Save (or update) the condition entry
+    await widget.isar.dailyConditions.put(conditionEntry);
+    /// if you want to clear the isar data for testing
+    // await widget.isar.dailyConditions.clear();
+    // print("DailyCondition collection cleared.");
+  });
+
+
+  // Update the _dayConditions map
+  await _updateDayConditions();
+
+  // Rebuild the calendar to apply the changes
+  setState(() {});
+
+  // Message if saved
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text('Condition saved for ${DateFormat('yyyy-MM-dd').format(today)}')),
+  );
+}
+
+/// Determines condition to display based on well being score
+/// 
+/// Parameter:
+///     -score: well being score
+String _determineCondition(double score) {
+  if (score >= 75.0) {
+    return 'good';
+  } else if (score >= 40.0) {
+    return 'okay';
+  } else {
+    return 'poor';
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          tooltip: 'Back',
-          onPressed: () => Navigator.pop(context), // Navigate back to main page
-        ),
-        title: const Text('Melon Health History'),
+        title: const Text('Hoot Health History'),
       ),
       body: Column(
         children: [
           Expanded(
+            // Calendar building/formatting
             child: TableCalendar(
             firstDay: DateTime.utc(2000, 1, 1),
             lastDay: DateTime.utc(2100, 12, 31),
@@ -201,20 +297,41 @@ Widget _buildKeySection() {
                 );
               },
               todayBuilder: (context, day, focusedDay) {
+                String? condition = _getConditionForDay(day);
                 return Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blueAccent,
+                  decoration: BoxDecoration(
+                    // Use condition's color if available
+                    // Transparent if no condition
+                    color: condition != null
+                        ? _conditionColors[condition] 
+                        : Colors.transparent,       
                     shape: BoxShape.circle,
+                    border: condition == null
+                        ? Border.all(color: Colors.blueAccent, width: 2) // Outline for today
+                        : null,
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     '${day.day}',
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: condition != null ? Colors.white : Colors.blueAccent, // Change text color
+                    ),
                   ),
                 );
               },
             ),
           ),
+          ),
+          const SizedBox(height: 16),
+          // Button for logging today's well being score
+          ElevatedButton(
+            onPressed: () async {
+              final healthProvider = Provider.of<HealthProvider>(context, listen: false);
+              final double wellBeingScore = healthProvider.wellbeingScore; // Get the score
+              String condition = _determineCondition(wellBeingScore);
+              await _saveCondition(condition);
+            },
+            child: const Text('Log Today\'s Score'),
           ),
           const SizedBox(height: 16),
           _buildKeySection(),

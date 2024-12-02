@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:melon_metrics/models/daily_condition.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
 import 'package:melon_metrics/providers/weather_provider.dart';
@@ -17,7 +18,7 @@ void main() async {
   final dir = await getApplicationDocumentsDirectory();
   // Get a reference to the Isar database that lives in this sandbox
   // that will persist our data!
-  final isar = await Isar.open([GoalSettingSchema], directory: dir.path);
+  final isar = await Isar.open([GoalSettingSchema, DailyConditionSchema], directory: dir.path);
   runApp(
     InheritedVirtualPetGameWrapper(
       virtualPetGame: VirtualPetGame(),
@@ -27,19 +28,21 @@ void main() async {
           ChangeNotifierProvider(create: (context) => GoalProvider(isar)),
           ChangeNotifierProvider(create: (context) => WeatherProvider()),
         ],
-        child: const MainApp(),
+        child: MainApp(isar: isar),
       ),
     ),
   );
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final Isar isar;
+
+  const MainApp({super.key, required this.isar});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MelonMetricsApp(), // Your home app
+      home: MelonMetricsApp(isar: isar), // Home app
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,

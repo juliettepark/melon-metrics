@@ -4,17 +4,30 @@ import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/views/calendar_view.dart';
 import 'package:melon_metrics/views/home_view.dart';
 import 'package:melon_metrics/views/settings_views.dart';
+//import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+//import 'package:melon_metrics/models/daily_condition.dart';
+import 'package:isar/isar.dart';
 
 // Inspiried by navigation code from lecture
 class MelonMetricsApp extends StatefulWidget {
-  const MelonMetricsApp({super.key});
+  final Isar isar;
+
+  const MelonMetricsApp({super.key, required this.isar});
 
   @override
   State<MelonMetricsApp> createState() => _MelonMetricsAppState();
 }
 
 class _MelonMetricsAppState extends State<MelonMetricsApp> {
+  late final Isar _isar;
+
+  @override
+  void initState() {
+    super.initState();
+    _isar = widget.isar;
+  }
+
   int _currentTabIndex = 0;
 
   @override
@@ -56,7 +69,7 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
                       sleepHours: goalProvider.sleepHours,
                       steps: goalProvider.steps));
             }),
-          2 => const CalendarPage(),
+          2 => CalendarPage(isar: _isar),
           _ => const Placeholder(),
         }));
   }
