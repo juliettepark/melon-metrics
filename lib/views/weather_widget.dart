@@ -25,8 +25,12 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
   /// Starts the timer to update the weather every minute.
   void _startWeatherUpdateTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
-      _fetchWeather();
+    _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
+      final weatherProvider =
+        Provider.of<WeatherProvider>(context, listen: false);
+      final periodicWeatherCheck = WeatherChecker(weatherProvider);
+      periodicWeatherCheck.fetchAndUpdateCurrentSeattleWeather();
+      // _fetchWeather();
     });
   }
 
