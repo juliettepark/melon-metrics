@@ -23,7 +23,9 @@ class ProgressBar extends StatelessWidget {
         makeSingleBar(barIcon: Icons.nightlight, 
                       goal: singleUseGoalProvider.sleepHours.toDouble(), 
                       actual: goalProvider.sleepHours.toDouble(), 
-                      fillBar:Theme.of(context).colorScheme.inversePrimary),
+                      fillBar: const Color.fromRGBO(116, 84, 106, 1)
+                      // fillBar:Theme.of(context).colorScheme.inversePrimary
+                      ),
         makeSingleBar(barIcon: Icons.directions_walk_rounded, 
                       goal: goalProvider.steps.toDouble(), 
                       actual: healthProvider.steps.toDouble(), 
@@ -31,7 +33,7 @@ class ProgressBar extends StatelessWidget {
         makeSingleBar(barIcon: Icons.fireplace_outlined, 
                       goal: goalProvider.calories.toDouble(),
                       actual: healthProvider.caloriesBurned, 
-                      fillBar: Colors.amber.shade200),
+                      fillBar: Color.fromRGBO(246, 126, 125, 1)),
         // makeSingleBar(barIcon: Icons.fireplace_outlined, 
         //               goal: 500,
         //               actual: 200, 
@@ -117,10 +119,10 @@ class ProgressBar extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
             ),
           ),
-          Expanded(child: Padding(
-            padding: const EdgeInsets.only( left: 8.0),
-            child: Text('(${actual.toInt()} / ${goal.toInt()})'),
-          ))
+          // Expanded(child: Padding(
+          //   padding: const EdgeInsets.only( left: 8.0),
+          //   child: Text('(${actual.toInt()} / ${goal.toInt()})'),
+          // ))
         ],
       ),
     );

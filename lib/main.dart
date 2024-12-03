@@ -44,9 +44,21 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: MelonMetricsApp(isar: isar), // Home app
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        colorScheme: const ColorScheme(brightness: Brightness.light, 
+          primary: Color.fromRGBO(132, 59, 98, 1), 
+          onPrimary: Color.fromRGBO(11, 3, 45, 1), 
+          secondary: Color.fromRGBO(11, 3, 45, 1), 
+          onSecondary: Color.fromRGBO(11, 3, 45, 1), 
+          error: Color.fromRGBO(246, 126, 125, 1), 
+          onError: Color.fromRGBO(246, 126, 125, 1), 
+          surface: Color.fromRGBO(246, 200, 177, 1), 
+          onSurface: Color.fromRGBO(11, 3, 45, 1)),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
     );
   }
 }
+
+// Color.fromRGBO(132, 59, 98, 1)
+// Color.fromRGBO(11, 3, 45, 1)

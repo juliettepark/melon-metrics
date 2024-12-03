@@ -107,13 +107,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   Text(
                     textToShow,
                     style: TextStyle(
-                      fontSize: 24, 
+                      fontSize: 12, 
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Theme.of(context).colorScheme.surface,
+                      // overflow:
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Icon(iconToShow, size: 30, color: Theme.of(context).colorScheme.onPrimary,),
+                  Icon(iconToShow, size: 24, color: Theme.of(context).colorScheme.onPrimary,),
                 ],
               ),
             ),

@@ -27,7 +27,7 @@ class HomeView extends StatelessWidget {
       Consumer2<HealthProvider, GoalProvider>(
       builder: (context, healthProvider, goalProvider, child) {
         return Padding(
-          padding: const EdgeInsets.all(50.0),
+          padding: const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
           child: Column(
             children: <Widget>[
               // Health stats
