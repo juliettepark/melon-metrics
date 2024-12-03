@@ -24,6 +24,7 @@ void main() async {
       virtualPetGame: VirtualPetGame(),
       child: MultiProvider(
         providers: [
+          // Data is held in 3 different Providers
           ChangeNotifierProvider(create: (context) => HealthProvider()),
           ChangeNotifierProvider(create: (context) => GoalProvider(isar)),
           ChangeNotifierProvider(create: (context) => WeatherProvider()),
@@ -44,6 +45,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: MelonMetricsApp(isar: isar), // Home app
       theme: ThemeData(
+        // Define a custom Color Scheme
         colorScheme: const ColorScheme(brightness: Brightness.light, 
           primary: Color.fromRGBO(132, 59, 98, 1), 
           onPrimary: Color.fromRGBO(11, 3, 45, 1), 
