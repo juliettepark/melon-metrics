@@ -3,96 +3,64 @@ import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
 import 'package:provider/provider.dart';
 
+// Represents the set of progress bars that indicate to the user
+// their progress towards each of their health goals.
 class ProgressBar extends StatelessWidget {
 
-  // IconData barIcon;
-  // double goal;
-  // double actual;
   final HealthProvider healthProvider;
   final GoalProvider goalProvider;
   const ProgressBar({super.key, required this.healthProvider, required this.goalProvider});
-  // const ProgressBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     // final singleUseHealthProvider = Provider.of<HealthProvider>(context, listen:false);
     final singleUseGoalProvider = Provider.of<GoalProvider>(context, listen:false);
 
+    // Create the 3 progress bars indicating progress towards
+    // Sleep, Steps, and Calories burned goals
     return Column(
       children: [
         makeSingleBar(barIcon: Icons.nightlight, 
                       goal: singleUseGoalProvider.sleepHours.toDouble(), 
                       actual: goalProvider.sleepHours.toDouble(), 
-                      fillBar: const Color.fromRGBO(116, 84, 106, 1)
-                      // fillBar:Theme.of(context).colorScheme.inversePrimary
+                      fillBar: const Color.fromRGBO(116, 84, 106, 1,),
+                      iconlabel: 'Sleep hours'
                       ),
         makeSingleBar(barIcon: Icons.directions_walk_rounded, 
                       goal: goalProvider.steps.toDouble(), 
                       actual: healthProvider.steps.toDouble(), 
-                      fillBar: Theme.of(context).colorScheme.surfaceTint),
+                      fillBar: Theme.of(context).colorScheme.surfaceTint,
+                      iconlabel: 'Steps walked'),
         makeSingleBar(barIcon: Icons.fireplace_outlined, 
                       goal: goalProvider.calories.toDouble(),
                       actual: healthProvider.caloriesBurned, 
-                      fillBar: const Color.fromRGBO(246, 126, 125, 1)),
-        // makeSingleBar(barIcon: Icons.fireplace_outlined, 
-        //               goal: 500,
-        //               actual: 200, 
-        //               fillBar: Colors.amber.shade200),
+                      fillBar: const Color.fromRGBO(246, 126, 125, 1),
+                      iconlabel: 'Calories Burned'),
       ],
     );
-    // return Column(
-    //   children: [
-    //     makeSingleBar(barIcon: Icons.nightlight, 
-    //                   goal: singleUseGoalProvider.sleepHours.toDouble(), 
-    //                   actual: singleUseHealthProvider.sleepHours, 
-    //                   fillBar:Theme.of(context).colorScheme.inversePrimary),
-    //     makeSingleBar(barIcon: Icons.directions_walk_rounded, 
-    //                   goal: singleUseGoalProvider.steps.toDouble(), 
-    //                   actual: singleUseHealthProvider.steps.toDouble(), 
-    //                   fillBar: Theme.of(context).colorScheme.surfaceTint),
-    //     makeSingleBar(barIcon: Icons.fireplace_outlined, 
-    //                   goal: singleUseGoalProvider.calories.toDouble(),
-    //                   actual: singleUseHealthProvider.caloriesBurned, 
-    //                   fillBar: Colors.amber.shade200),
-    //     // makeSingleBar(barIcon: Icons.fireplace_outlined, 
-    //     //               goal: 500,
-    //     //               actual: 200, 
-    //     //               fillBar: Colors.amber.shade200),
-    //   ],
-    // );
-    
-    // Column(
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   crossAxisAlignment: CrossAxisAlignment.center,
-    //   children: [
-    //     Row(
-    //       children: [
-    //         Icon(barIcon, size: 40,),
-    //         const SizedBox(width: 10,),
-    //         SizedBox(
-    //           width: 200,
-    //           child: LinearProgressIndicator(
-    //             value: progress,
-    //             backgroundColor: Colors.grey[300],
-    //             color: Colors.amber.shade200,
-    //             minHeight: 10,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ],
-    // );
   }
 
+  // Create a single Progress Bar showing progress towards one
+  // of the health goals.
+  // Bars will not go past the maximum (the user defined goal)
+  // param:
+  // - barIcon: Icon to display next to progress bar
+  // - goal: What the maximum metric (user's goal) is
+  // - actual: The value for how many steps, hours of sleep, or
+  //           calories burned the user actually got
+  // - fillBar: Color to fill progress bar with
+  // - iconlabel: Description of what kind of health
+  //              metric this bar represents 
   Widget makeSingleBar({required IconData barIcon, 
                         required double goal, 
                         required double actual, 
-                        required Color fillBar}) {
+                        required Color fillBar,
+                        required String iconlabel}) {
     // Calculate the progress as a percentage
     double progress;
 
     // Make sure the progress doesn't exceed 100% (i.e., 1.0)
-    print('Goal: ${goal}, Actual $actual');
+    // print('Goal: ${goal}, Actual $actual');
     if (goal != 0.0 && actual != 0.0) {
       progress = actual / goal;
     } else {
@@ -102,28 +70,31 @@ class ProgressBar extends StatelessWidget {
     // progress = goal == 0 || actual == 0 ? 0 : progress;
     
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 4.0),
-            child: Icon(barIcon, size: 30,),
-          ),
-          Expanded(
-            child: LinearProgressIndicator(
-              value: progress,
-              backgroundColor: Colors.grey[300],
-              color: fillBar,
-              minHeight: 20,
-              borderRadius: BorderRadius.circular(50),
+    return Semantics(
+      label: '$iconlabel is $progress out of $goal',
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 4.0),
+              child: Icon(barIcon, size: 30, semanticLabel: iconlabel,),
             ),
-          ),
-          // Expanded(child: Padding(
-          //   padding: const EdgeInsets.only( left: 8.0),
-          //   child: Text('(${actual.toInt()} / ${goal.toInt()})'),
-          // ))
-        ],
+            Expanded(
+              child: LinearProgressIndicator(
+                value: progress,
+                backgroundColor: Colors.grey[300],
+                color: fillBar,
+                minHeight: 20,
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+            // Expanded(child: Padding(
+            //   padding: const EdgeInsets.only( left: 8.0),
+            //   child: Text('(${actual.toInt()} / ${goal.toInt()})'),
+            // ))
+          ],
+        ),
       ),
     );
   }

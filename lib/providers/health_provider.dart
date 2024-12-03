@@ -1,13 +1,15 @@
 import 'dart:async';
 
-import 'package:flame/components.dart' as flame; // import as alias to not confuse the Timer
+import 'package:flame/components.dart'
+    as flame; // import as alias to not confuse the Timer
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:melon_metrics/models/virtual_pet_game.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:provider/provider.dart';
 
-class HealthProvider extends flame.Component with flame.HasGameRef<VirtualPetGame>, ChangeNotifier {
+class HealthProvider extends flame.Component
+    with flame.HasGameRef<VirtualPetGame>, ChangeNotifier {
   double _caloriesBurned = 0.0;
   bool _isPermissionGranted = false;
   double _sleepHours = 0.0;
@@ -105,21 +107,28 @@ class HealthProvider extends flame.Component with flame.HasGameRef<VirtualPetGam
     double score = 0;
     int count = 0;
     if (_caloriesBurned > 0) {
-      score += (_caloriesBurned / _goalCalories) * 100;
+      final caloriesScore = (_caloriesBurned / _goalCalories) * 100;
+      score += caloriesScore;
       count++;
     }
 
     if (_sleepHours > 0) {
-      score += (_sleepHours / _goalSleepHours) * 100;
+      final sleepScore = (_sleepHours / _goalSleepHours) * 100;
+      score += sleepScore;
       count++;
     }
 
     if (_steps > 0) {
-      score += (_steps / _goalSteps) * 100;
+      final stepScore = (_steps / _goalSteps) * 100;
+      score += stepScore;
       count++;
     }
 
-    _wellbeingScore = count > 0 ? score / count : 0;
+    double wellbeingScore = count > 0 ? score / count : 0;
+    if (wellbeingScore > 100) {
+      wellbeingScore = 100;
+    }
+    _wellbeingScore = wellbeingScore;
   }
 
   /// Gets the calories burned for the current day.
