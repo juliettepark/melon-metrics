@@ -62,23 +62,28 @@ class HomeView extends StatelessWidget {
                 flex: 4,
                 child: Container(
                   // color: Colors.pink,
-                  // decoration: BoxDecoration(
-                  //   border: Border.all(
-                  //     color: Theme.of(context).colorScheme.surfaceTint,
-                  //     width: 5,
-                  //   ),
-                  //   borderRadius: BorderRadius.circular(50)
-                  // ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Theme.of(context).colorScheme.surfaceTint,
+                        width: 3,
+                      ),
+                      bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.surfaceTint,
+                        width: 3,
+                      ),
+                    ),
+                  ),
                   // child: const Image(image: AssetImage('assets/good.png'), width: double.infinity,)
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: GameWidget(
                       game: InheritedVirtualPetGameWrapper.of(context).virtualPetGame,
                     ),
-                  )
-                )
+                  ),
+                ),
               ),
-
+              SizedBox(height: 20),
               // Refresh button
               ElevatedButton(
                 onPressed: () => getHealthData(context),

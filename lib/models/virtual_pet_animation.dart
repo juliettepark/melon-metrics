@@ -6,7 +6,7 @@ import 'dart:async';
 
 import 'package:melon_metrics/models/virtual_pet_game.dart';
 
-const double virtualPetSize = 200;
+const double virtualPetSize = 250;
 bool userTriggeredAnimation = false;
 
 class VirtualPetAnimation extends SpriteAnimationComponent
@@ -69,6 +69,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
         break;
       case VirtualPetAnimationState.sad:
         animation = sadAnimation;
+        direction = 0;
         break;
     }
   }
@@ -108,7 +109,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
 
     // Implement movement based on direction
     if (gameRef.virtualPetData.walkCycle.value < 3) {
-      changeState(VirtualPetAnimationState.idle);
+      changeState(VirtualPetAnimationState.sad);
     } else if (gameRef.virtualPetData.walkCycle.value < 5) {
       changeState(VirtualPetAnimationState.walkBackward);
       if (facingRight) {
@@ -133,71 +134,6 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       changeState(VirtualPetAnimationState.idle);
     }
   }
-
-  // @override
-  // Future<void> update(double dt) async {
-  //   super.update(dt);
-
-  //   if (userTriggeredAnimation) return;
-
-  //   if (direction == 1) {
-  //     position.x += 1;
-  //   }
-
-  //   if (direction == 0) {
-  //     position.x += 0;
-  //   }
-
-  //   if (direction == -1) {
-  //     position.x -= 1;
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value <= 16) {
-  //     changeState(VirtualPetAnimationState.idle);
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 14) {
-  //     changeState(VirtualPetAnimationState.jump);
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 12) {
-  //     changeState(VirtualPetAnimationState.walkForward);
-  //     if (facingRight == false) {
-  //       flipHorizontallyAroundCenter();
-  //       facingRight = true;
-  //     }
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 10) {
-  //     changeState(VirtualPetAnimationState.idle);
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 9) {
-  //     changeState(VirtualPetAnimationState.jump);
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 7) {
-  //     changeState(VirtualPetAnimationState.idle);
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 5) {
-  //     changeState(VirtualPetAnimationState.walkBackward);
-  //     if (facingRight) {
-  //       flipHorizontallyAroundCenter();
-  //       facingRight = false;
-  //     }
-  //   }
-
-  //   if (gameRef.virtualPetData.walkCycle.value < 3) {
-  //     changeState(VirtualPetAnimationState.idle);
-  //   }
-
-  //   // TODO: this needs to be updated!! When does it die!???
-  //   // if (gameRef.virtualPetData.health.value <= 0) {
-  //   //   changeState(VirtualPetAnimationState.death);
-  //   // }
-
-  // }
 
   Future<void> loadAnimations() async {
     idleAnimation = SpriteAnimation.fromFrameData(
