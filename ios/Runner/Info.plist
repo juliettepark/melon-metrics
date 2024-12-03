@@ -30,6 +30,8 @@
 	<string>We will sync your data with the Apple Health app to give you better insights</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>We will sync your data with the Apple Health app to give you better insights</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Get the weather of the current GPS location.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

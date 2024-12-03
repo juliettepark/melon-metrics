@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/helpers/weather_checker.dart';
+import 'package:melon_metrics/providers/position_provider.dart';
 import 'package:melon_metrics/providers/weather_provider.dart';
 import 'package:melon_metrics/weather_conditions.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,10 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
       final weatherProvider =
           Provider.of<WeatherProvider>(context, listen: false);
-      final periodicWeatherCheck = WeatherChecker(weatherProvider);
+      final positionProvider =
+          Provider.of<PositionProvider>(context, listen: false);
+      final periodicWeatherCheck =
+          WeatherChecker(weatherProvider, positionProvider);
       periodicWeatherCheck.fetchAndUpdateCurrentSeattleWeather();
       // _fetchWeather();
     });
@@ -46,7 +50,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
     final weatherProvider =
         Provider.of<WeatherProvider>(context, listen: false);
-    _weatherChecker = WeatherChecker(weatherProvider);
+    final positionProvider =
+        Provider.of<PositionProvider>(context, listen: false);
+    _weatherChecker = WeatherChecker(weatherProvider, positionProvider);
 
     _fetchWeather();
     _startWeatherUpdateTimer();

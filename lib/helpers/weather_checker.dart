@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:melon_metrics/providers/position_provider.dart';
 import 'package:melon_metrics/providers/weather_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:melon_metrics/weather_conditions.dart';
@@ -13,11 +14,11 @@ import 'package:melon_metrics/weather_conditions.dart';
 ///   client will be created.
 class WeatherChecker {
   final WeatherProvider weatherProvider;
-  final _latitude = '47.96649'; //Allen Center is here, per Google Maps
-  final _longitude = '-122.34318';
+  final PositionProvider positionProvider;
   final http.Client client;
 
-  WeatherChecker(this.weatherProvider, [http.Client? client])
+  WeatherChecker(this.weatherProvider, this.positionProvider,
+      [http.Client? client])
       : client = client ?? http.Client();
 
   /// Fetches the current weather at Allen Center and updates the
@@ -27,8 +28,10 @@ class WeatherChecker {
   /// - A Future that completes when the weather has been fetched and updated.
   Future<void> fetchAndUpdateCurrentSeattleWeather() async {
     try {
+      final latitude = await positionProvider.getLatitude();
+      final longitude = await positionProvider.getLongitude();
       final gridResponse = await client.get(
-          Uri.parse('https://api.weather.gov/points/$_latitude,$_longitude'));
+          Uri.parse('https://api.weather.gov/points/$latitude,$longitude'));
       final gridParsed = (jsonDecode(gridResponse.body));
       final String? forecastURL = gridParsed['properties']?['forecast'];
       if (forecastURL == null) {
