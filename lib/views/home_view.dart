@@ -83,6 +83,10 @@ class HomeView extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => getHealthData(context),
                 child: const Text('Refresh Health Data'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
+                  foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
+                ),
               ),
               // Expanded(
               //   child: Container(

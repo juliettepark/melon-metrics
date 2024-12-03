@@ -8,14 +8,14 @@ class ProgressBar extends StatelessWidget {
   // IconData barIcon;
   // double goal;
   // double actual;
-  HealthProvider healthProvider;
-  GoalProvider goalProvider;
-  ProgressBar({super.key, required this.healthProvider, required this.goalProvider});
+  final HealthProvider healthProvider;
+  final GoalProvider goalProvider;
+  const ProgressBar({super.key, required this.healthProvider, required this.goalProvider});
   // const ProgressBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final singleUseHealthProvider = Provider.of<HealthProvider>(context, listen:false);
+    // final singleUseHealthProvider = Provider.of<HealthProvider>(context, listen:false);
     final singleUseGoalProvider = Provider.of<GoalProvider>(context, listen:false);
 
     return Column(
@@ -33,7 +33,7 @@ class ProgressBar extends StatelessWidget {
         makeSingleBar(barIcon: Icons.fireplace_outlined, 
                       goal: goalProvider.calories.toDouble(),
                       actual: healthProvider.caloriesBurned, 
-                      fillBar: Color.fromRGBO(246, 126, 125, 1)),
+                      fillBar: const Color.fromRGBO(246, 126, 125, 1)),
         // makeSingleBar(barIcon: Icons.fireplace_outlined, 
         //               goal: 500,
         //               actual: 200, 
