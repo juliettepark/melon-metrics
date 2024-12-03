@@ -61,6 +61,18 @@ class HealthProvider extends flame.Component with flame.HasGameRef<VirtualPetGam
   @override
   void update(double dt) {
     if (gameRef.virtualPetData.walkCycle.value <= 0) {
+      print("-----");
+      print(_wellbeingScore);
+      print(_caloriesBurned);
+      print(_sleepHours);
+      print(_steps);
+      if (_wellbeingScore >= 66) {
+        gameRef.virtualPetData.healthState.value = 2;
+      } else if (_wellbeingScore < 33) {
+        gameRef.virtualPetData.healthState.value = 0;
+      } else {
+        gameRef.virtualPetData.healthState.value = 1;
+      }
       gameRef.virtualPetData.walkCycle.value = 16;
     } else {
       animateTimer?.update(dt);
@@ -92,7 +104,6 @@ class HealthProvider extends flame.Component with flame.HasGameRef<VirtualPetGam
   void calculateWellbeingScore() {
     double score = 0;
     int count = 0;
-
     if (_caloriesBurned > 0) {
       score += (_caloriesBurned / _goalCalories) * 100;
       count++;

@@ -47,7 +47,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
   }
 
   void changeState(VirtualPetAnimationState animationState) {
-    print("Changing to state: $animationState");
+    // print("Changing to state: $animationState");
     switch (animationState) {
       case VirtualPetAnimationState.idle:
         animation = idleAnimation;
@@ -107,32 +107,90 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       position.x -= 1;
     }
 
-    // Implement movement based on direction
-    if (gameRef.virtualPetData.walkCycle.value < 3) {
-      changeState(VirtualPetAnimationState.sad);
-    } else if (gameRef.virtualPetData.walkCycle.value < 5) {
-      changeState(VirtualPetAnimationState.walkBackward);
-      if (facingRight) {
-        flipHorizontallyAroundCenter();
-        facingRight = false;
+    if (gameRef.virtualPetData.healthState == 2) {
+      if (gameRef.virtualPetData.walkCycle.value < 3) {
+        changeState(VirtualPetAnimationState.idle);
+      } else if (gameRef.virtualPetData.walkCycle.value < 5) {
+        changeState(VirtualPetAnimationState.walkBackward);
+        if (facingRight) {
+          flipHorizontallyAroundCenter();
+          facingRight = false;
+        }
+      } else if (gameRef.virtualPetData.walkCycle.value < 7) {
+        changeState(VirtualPetAnimationState.idle);
+      } else if (gameRef.virtualPetData.walkCycle.value < 9) {
+        changeState(VirtualPetAnimationState.jump);
+      } else if (gameRef.virtualPetData.walkCycle.value < 10) {
+        changeState(VirtualPetAnimationState.idle);
+      } else if (gameRef.virtualPetData.walkCycle.value < 12) {
+        changeState(VirtualPetAnimationState.walkForward);
+        if (facingRight == false) {
+          flipHorizontallyAroundCenter();
+          facingRight = true;
+        }
+      } else if (gameRef.virtualPetData.walkCycle.value < 14) {
+        changeState(VirtualPetAnimationState.jump);
+      } else if (gameRef.virtualPetData.walkCycle.value <= 16) {
+        changeState(VirtualPetAnimationState.idle);
       }
-    } else if (gameRef.virtualPetData.walkCycle.value < 7) {
-      changeState(VirtualPetAnimationState.idle);
-    } else if (gameRef.virtualPetData.walkCycle.value < 9) {
-      changeState(VirtualPetAnimationState.jump);
-    } else if (gameRef.virtualPetData.walkCycle.value < 10) {
-      changeState(VirtualPetAnimationState.idle);
-    } else if (gameRef.virtualPetData.walkCycle.value < 12) {
-      changeState(VirtualPetAnimationState.walkForward);
-      if (facingRight == false) {
-        flipHorizontallyAroundCenter();
-        facingRight = true;
-      }
-    } else if (gameRef.virtualPetData.walkCycle.value < 14) {
-      changeState(VirtualPetAnimationState.jump);
-    } else if (gameRef.virtualPetData.walkCycle.value <= 16) {
-      changeState(VirtualPetAnimationState.idle);
     }
+
+    else if (gameRef.virtualPetData.healthState == 0) {
+      if (gameRef.virtualPetData.walkCycle.value < 3) {
+        changeState(VirtualPetAnimationState.sad);
+      } else if (gameRef.virtualPetData.walkCycle.value < 5) {
+        changeState(VirtualPetAnimationState.walkBackward);
+        if (facingRight) {
+          flipHorizontallyAroundCenter();
+          facingRight = false;
+        }
+      } else if (gameRef.virtualPetData.walkCycle.value < 7) {
+        changeState(VirtualPetAnimationState.sad);
+      } else if (gameRef.virtualPetData.walkCycle.value < 9) {
+        changeState(VirtualPetAnimationState.jump);
+      } else if (gameRef.virtualPetData.walkCycle.value < 10) {
+        changeState(VirtualPetAnimationState.idle);
+      } else if (gameRef.virtualPetData.walkCycle.value < 12) {
+        changeState(VirtualPetAnimationState.walkForward);
+        if (facingRight == false) {
+          flipHorizontallyAroundCenter();
+          facingRight = true;
+        }
+      } else if (gameRef.virtualPetData.walkCycle.value < 14) {
+        changeState(VirtualPetAnimationState.jump);
+      } else if (gameRef.virtualPetData.walkCycle.value <= 16) {
+        changeState(VirtualPetAnimationState.sad);
+      }
+    }
+
+    else {
+      if (gameRef.virtualPetData.walkCycle.value < 3) {
+        changeState(VirtualPetAnimationState.sad);
+      } else if (gameRef.virtualPetData.walkCycle.value < 5) {
+        changeState(VirtualPetAnimationState.walkBackward);
+        if (facingRight) {
+          flipHorizontallyAroundCenter();
+          facingRight = false;
+        }
+      } else if (gameRef.virtualPetData.walkCycle.value < 7) {
+        changeState(VirtualPetAnimationState.idle);
+      } else if (gameRef.virtualPetData.walkCycle.value < 9) {
+        changeState(VirtualPetAnimationState.jump);
+      } else if (gameRef.virtualPetData.walkCycle.value < 10) {
+        changeState(VirtualPetAnimationState.idle);
+      } else if (gameRef.virtualPetData.walkCycle.value < 12) {
+        changeState(VirtualPetAnimationState.walkForward);
+        if (facingRight == false) {
+          flipHorizontallyAroundCenter();
+          facingRight = true;
+        }
+      } else if (gameRef.virtualPetData.walkCycle.value < 14) {
+        changeState(VirtualPetAnimationState.jump);
+      } else if (gameRef.virtualPetData.walkCycle.value <= 16) {
+        changeState(VirtualPetAnimationState.idle);
+      }
+    }
+    // Implement movement based on direction
   }
 
   Future<void> loadAnimations() async {
