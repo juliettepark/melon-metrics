@@ -9,10 +9,11 @@ import 'package:provider/provider.dart';
 //import 'package:melon_metrics/models/daily_condition.dart';
 import 'package:isar/isar.dart';
 
+// Wrapper for all Navigation
+// (Home Page, Settings, and Calendar)
 // Inspiried by navigation code from lecture
 class MelonMetricsApp extends StatefulWidget {
   final Isar isar;
-
   const MelonMetricsApp({super.key, required this.isar});
 
   @override
@@ -35,8 +36,8 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
         // appBar: AppBar(
-        //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        //   // title: Text('owl power'),
+        //   backgroundColor: Theme.of(context).colorScheme.surface,
+        //   title: Text('HootHealth'),
         // ),
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
@@ -54,11 +55,11 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
             NavigationDestination(
                 icon: Icon(Icons.settings), label: 'Settings', tooltip: 'Set Health Goals',),
             NavigationDestination(icon: Icon(Icons.calendar_month), label: 'Calendar', tooltip: 'See Health Calendar',),
-            // NavigationDestination(icon: Icon(Icons.phone), label: 'Widget 4'),
           ],
         ),
 
 
+        // Define which page to navigate to
         body: Center(
             child: switch (_currentTabIndex) {
           0 => const HomeView(),

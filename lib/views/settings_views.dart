@@ -13,11 +13,13 @@ class SettingsViews extends StatefulWidget {
   State<SettingsViews> createState() => _SettingsViewsState();
 }
 
+// Settings view page to allow users to edit their health goals
 class _SettingsViewsState extends State<SettingsViews> {
   late int currentSleep;
   late int currentSteps;
   late int currentCalories;
 
+  // Temporary state to record changes
   @override
   void initState() {
     super.initState();
@@ -26,11 +28,13 @@ class _SettingsViewsState extends State<SettingsViews> {
     currentCalories = widget.entry.calories;
   }
 
+  // Display input fields for each health metric and
+  // a save button
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Goal Setting'),
+        title: const Text('Goal Settings'),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             border: Border(
@@ -46,83 +50,92 @@ class _SettingsViewsState extends State<SettingsViews> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Sleep input field
-            Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Center align the row
-              children: [
-                const Text('Sleep: ', style: TextStyle(fontSize: 16)),
-                SizedBox(
-                  width: 150, // Set the desired width of the field
-                  child: TextFormField(
-                    initialValue: currentSleep.toString(),
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            Semantics(
+              label: 'Edit goal for sleep hours. Current goal: $currentSleep',
+              child: Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Center align the row
+                children: [
+                  const Text('Sleep: ', style: TextStyle(fontSize: 16)),
+                  SizedBox(
+                    width: 150, // Set the desired width of the field
+                    child: TextFormField(
+                      initialValue: currentSleep.toString(),
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      ),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          currentSleep = int.tryParse(value) ?? currentSleep;
+                        });
+                      },
                     ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        currentSleep = int.tryParse(value) ?? currentSleep;
-                      });
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 10),
             // Steps input field
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Steps: ', style: TextStyle(fontSize: 16)),
-                SizedBox(
-                  width: 150,
-                  child: TextFormField(
-                    initialValue: currentSteps.toString(),
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            Semantics(
+              label: 'Edit goal for daily steps. Current goal: $currentSteps',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Steps: ', style: TextStyle(fontSize: 16)),
+                  SizedBox(
+                    width: 150,
+                    child: TextFormField(
+                      initialValue: currentSteps.toString(),
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      ),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          currentSteps = int.tryParse(value) ?? currentSteps;
+                        });
+                      },
                     ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        currentSteps = int.tryParse(value) ?? currentSteps;
-                      });
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 10),
-            // Screen Time input field
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Calories: ', style: TextStyle(fontSize: 16)),
-                SizedBox(
-                  width: 150,
-                  child: TextFormField(
-                    initialValue: currentCalories.toString(),
-                    decoration: const InputDecoration(
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            // Calories input field
+            Semantics(
+              label: 'Edit goal for daily calories burned. Current goal: $currentCalories',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Calories: ', style: TextStyle(fontSize: 16)),
+                  SizedBox(
+                    width: 150,
+                    child: TextFormField(
+                      initialValue: currentCalories.toString(),
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      ),
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          currentCalories =
+                              int.tryParse(value) ?? currentCalories;
+                        });
+                      },
                     ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        currentCalories =
-                            int.tryParse(value) ?? currentCalories;
-                      });
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 20),
-            // Save Button
+            // Save Button to record new settings
             Semantics(
               label: 'Save new health goal settings',
               child: ElevatedButton(
@@ -136,7 +149,6 @@ class _SettingsViewsState extends State<SettingsViews> {
                       .updateGoals(currentSleep, currentSteps, currentCalories);
                   Provider.of<HealthProvider>(context, listen: false)
                       .updateGoals(context);
-                  // Navigator.pop(context); // Optionally navigate back
                 },
                 child: const Text('Save'),
               ),
