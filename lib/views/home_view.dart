@@ -62,13 +62,13 @@ class HomeView extends StatelessWidget {
                 flex: 4,
                 child: Container(
                   // color: Colors.pink,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.surfaceTint,
-                      width: 5,
-                    ),
-                    borderRadius: BorderRadius.circular(50)
-                  ),
+                  // decoration: BoxDecoration(
+                  //   border: Border.all(
+                  //     color: Theme.of(context).colorScheme.surfaceTint,
+                  //     width: 5,
+                  //   ),
+                  //   borderRadius: BorderRadius.circular(50)
+                  // ),
                   // child: const Image(image: AssetImage('assets/good.png'), width: double.infinity,)
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),

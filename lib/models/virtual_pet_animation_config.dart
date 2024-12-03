@@ -12,6 +12,9 @@ class VirtualPetAnimationDataConfig {
   final VirtualPetAnimationData jumpAnimationData = VirtualPetAnimationData("owl/owlet_jump.png",
       SpriteAnimationData.sequenced(amount: 8, stepTime: 0.30, textureSize: Vector2.all(32)));
 
+  final VirtualPetAnimationData sadAnimationData = VirtualPetAnimationData("owl/owlet_sad.png",
+      SpriteAnimationData.sequenced(amount: 6, stepTime: 0.30, textureSize: Vector2.all(32)));
+
   final VirtualPetAnimationData deathAnimationData = VirtualPetAnimationData(
       "owl/owlet_death.png",
       SpriteAnimationData.sequenced(

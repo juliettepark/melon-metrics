@@ -4,4 +4,5 @@ enum VirtualPetAnimationState {
   walkBackward,
   jump,
   death,
+  sad
 }

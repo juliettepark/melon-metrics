@@ -1,16 +1,19 @@
 import 'dart:async';
 
+import 'package:flame/components.dart' as flame; // import as alias to not confuse the Timer
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
+import 'package:melon_metrics/models/virtual_pet_game.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:provider/provider.dart';
 
-class HealthProvider with ChangeNotifier {
+class HealthProvider extends flame.Component with flame.HasGameRef<VirtualPetGame>, ChangeNotifier {
   double _caloriesBurned = 0.0;
   bool _isPermissionGranted = false;
   double _sleepHours = 0.0;
   int _steps = 0;
   Timer? _timer;
+  flame.Timer? animateTimer;
   double _wellbeingScore = 0.0;
 
   int _goalSleepHours = 8;
@@ -39,6 +42,11 @@ class HealthProvider with ChangeNotifier {
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       updateHealthData();
     });
+    animateTimer = flame.Timer(
+      1,
+      onTick: () => gameRef.virtualPetData.walkCycle.value -= 1,
+      repeat: true,
+    );
   }
 
   /// Updates the health data.
@@ -48,6 +56,15 @@ class HealthProvider with ChangeNotifier {
     await fetchSteps();
     calculateWellbeingScore();
     notifyListeners();
+  }
+
+  @override
+  void update(double dt) {
+    if (gameRef.virtualPetData.walkCycle.value <= 0) {
+      gameRef.virtualPetData.walkCycle.value = 16;
+    } else {
+      animateTimer?.update(dt);
+    }
   }
 
   /// Request permission to access health data.

@@ -19,6 +19,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
   late final SpriteAnimation backwardWalkAnimation;
   late final SpriteAnimation jumpAnimation;
   late final SpriteAnimation deathAnimation;
+  late final SpriteAnimation sadAnimation;
 
   double deltaY = 0.5;
   double deltaX = 0;
@@ -46,6 +47,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
   }
 
   void changeState(VirtualPetAnimationState animationState) {
+    print("Changing to state: $animationState");
     switch (animationState) {
       case VirtualPetAnimationState.idle:
         animation = idleAnimation;
@@ -65,21 +67,26 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       case VirtualPetAnimationState.death:
         animation = deathAnimation;
         break;
+      case VirtualPetAnimationState.sad:
+        animation = sadAnimation;
+        break;
     }
   }
 
   @override
-  @override
   Future<void> onLoad() async {
-    await super.onLoad();
-    position = Vector2(
-      (gameRef.size.x / 3) - (size.x / 2),
-      (gameRef.size.y / 2) - (size.y / 2),
-    );
-    await loadAnimations();  // Ensure this is awaited
-    animation = idleAnimation;  // Now it’s safe to assign the animation
+    try {
+      await super.onLoad();
+      position = Vector2(
+        (gameRef.size.x / 3) - (size.x / 2),
+        (gameRef.size.y / 2) - (size.y / 2),
+      );
+      await loadAnimations();  // Ensure this is awaited
+      animation = idleAnimation;  // Now it’s safe to assign the animation
+    } catch(e) {
+      print("OMG ALERT: $e");
+    }
   }
-
 
   @override
   Future<void> update(double dt) async {
@@ -99,51 +106,98 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       position.x -= 1;
     }
 
-    if (gameRef.virtualPetData.walkCycle.value <= 16) {
+    // Implement movement based on direction
+    if (gameRef.virtualPetData.walkCycle.value < 3) {
       changeState(VirtualPetAnimationState.idle);
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 14) {
-      changeState(VirtualPetAnimationState.jump);
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 12) {
-      changeState(VirtualPetAnimationState.walkForward);
-      if (facingRight == false) {
-        flipHorizontallyAroundCenter();
-        facingRight = true;
-      }
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 10) {
-      changeState(VirtualPetAnimationState.idle);
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 9) {
-      changeState(VirtualPetAnimationState.jump);
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 7) {
-      changeState(VirtualPetAnimationState.idle);
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 5) {
+    } else if (gameRef.virtualPetData.walkCycle.value < 5) {
       changeState(VirtualPetAnimationState.walkBackward);
       if (facingRight) {
         flipHorizontallyAroundCenter();
         facingRight = false;
       }
-    }
-
-    if (gameRef.virtualPetData.walkCycle.value < 3) {
+    } else if (gameRef.virtualPetData.walkCycle.value < 7) {
+      changeState(VirtualPetAnimationState.idle);
+    } else if (gameRef.virtualPetData.walkCycle.value < 9) {
+      changeState(VirtualPetAnimationState.jump);
+    } else if (gameRef.virtualPetData.walkCycle.value < 10) {
+      changeState(VirtualPetAnimationState.idle);
+    } else if (gameRef.virtualPetData.walkCycle.value < 12) {
+      changeState(VirtualPetAnimationState.walkForward);
+      if (facingRight == false) {
+        flipHorizontallyAroundCenter();
+        facingRight = true;
+      }
+    } else if (gameRef.virtualPetData.walkCycle.value < 14) {
+      changeState(VirtualPetAnimationState.jump);
+    } else if (gameRef.virtualPetData.walkCycle.value <= 16) {
       changeState(VirtualPetAnimationState.idle);
     }
-
-    // TODO: this needs to be updated!! When does it die!???
-    // if (gameRef.virtualPetData.health.value <= 0) {
-    //   changeState(VirtualPetAnimationState.death);
-    // }
   }
+
+  // @override
+  // Future<void> update(double dt) async {
+  //   super.update(dt);
+
+  //   if (userTriggeredAnimation) return;
+
+  //   if (direction == 1) {
+  //     position.x += 1;
+  //   }
+
+  //   if (direction == 0) {
+  //     position.x += 0;
+  //   }
+
+  //   if (direction == -1) {
+  //     position.x -= 1;
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value <= 16) {
+  //     changeState(VirtualPetAnimationState.idle);
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 14) {
+  //     changeState(VirtualPetAnimationState.jump);
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 12) {
+  //     changeState(VirtualPetAnimationState.walkForward);
+  //     if (facingRight == false) {
+  //       flipHorizontallyAroundCenter();
+  //       facingRight = true;
+  //     }
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 10) {
+  //     changeState(VirtualPetAnimationState.idle);
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 9) {
+  //     changeState(VirtualPetAnimationState.jump);
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 7) {
+  //     changeState(VirtualPetAnimationState.idle);
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 5) {
+  //     changeState(VirtualPetAnimationState.walkBackward);
+  //     if (facingRight) {
+  //       flipHorizontallyAroundCenter();
+  //       facingRight = false;
+  //     }
+  //   }
+
+  //   if (gameRef.virtualPetData.walkCycle.value < 3) {
+  //     changeState(VirtualPetAnimationState.idle);
+  //   }
+
+  //   // TODO: this needs to be updated!! When does it die!???
+  //   // if (gameRef.virtualPetData.health.value <= 0) {
+  //   //   changeState(VirtualPetAnimationState.death);
+  //   // }
+
+  // }
 
   Future<void> loadAnimations() async {
     idleAnimation = SpriteAnimation.fromFrameData(
@@ -161,5 +215,8 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     deathAnimation = SpriteAnimation.fromFrameData(
         await gameRef.images.load(_animationDataConfig.deathAnimationData.animationPath),
         _animationDataConfig.deathAnimationData.animationData);
+    sadAnimation = SpriteAnimation.fromFrameData(
+        await gameRef.images.load(_animationDataConfig.sadAnimationData.animationPath),
+        _animationDataConfig.sadAnimationData.animationData);
   }
 }

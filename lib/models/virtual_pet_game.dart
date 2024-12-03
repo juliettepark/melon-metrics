@@ -2,6 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/models/virtual_pet.dart';
 import 'package:melon_metrics/models/virtual_pet_data.dart';
+import 'package:melon_metrics/providers/health_provider.dart';
 
 class VirtualPetGame extends FlameGame {
   final VirtualPetData virtualPetData = VirtualPetData();
@@ -11,7 +12,7 @@ class VirtualPetGame extends FlameGame {
 
   @override
   Future<void> onLoad() async {
-
+    add(HealthProvider());
     add(VirtualPet());
 
     return super.onLoad();
