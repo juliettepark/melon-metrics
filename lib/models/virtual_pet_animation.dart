@@ -108,6 +108,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     }
 
     if (gameRef.virtualPetData.healthState == 2) {
+      // print("this is an if case, happy healthy");
       if (gameRef.virtualPetData.walkCycle.value < 3) {
         changeState(VirtualPetAnimationState.idle);
       } else if (gameRef.virtualPetData.walkCycle.value < 5) {
@@ -136,6 +137,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     }
 
     else if (gameRef.virtualPetData.healthState == 0) {
+      // print("this is an else if case, sad unhappy");
       if (gameRef.virtualPetData.walkCycle.value < 3) {
         changeState(VirtualPetAnimationState.sad);
       } else if (gameRef.virtualPetData.walkCycle.value < 5) {
@@ -164,8 +166,9 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     }
 
     else {
+      // print("else case idle");
       if (gameRef.virtualPetData.walkCycle.value < 3) {
-        changeState(VirtualPetAnimationState.sad);
+        changeState(VirtualPetAnimationState.idle);
       } else if (gameRef.virtualPetData.walkCycle.value < 5) {
         changeState(VirtualPetAnimationState.walkBackward);
         if (facingRight) {
