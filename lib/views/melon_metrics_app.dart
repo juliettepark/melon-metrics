@@ -50,10 +50,10 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
 
           // This defines what is in the nav bar
           destinations: const <Widget>[
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home', tooltip: 'Home Page',),
             NavigationDestination(
-                icon: Icon(Icons.settings), label: 'Settings'),
-            NavigationDestination(icon: Icon(Icons.calendar_month), label: 'Calendar'),
+                icon: Icon(Icons.settings), label: 'Settings', tooltip: 'Set Health Goals',),
+            NavigationDestination(icon: Icon(Icons.calendar_month), label: 'Calendar', tooltip: 'See Health Calendar',),
             // NavigationDestination(icon: Icon(Icons.phone), label: 'Widget 4'),
           ],
         ),
