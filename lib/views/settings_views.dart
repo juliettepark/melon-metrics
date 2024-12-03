@@ -31,11 +31,6 @@ class _SettingsViewsState extends State<SettingsViews> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Goal Setting'),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.close),
-        //   tooltip: 'Cancel',
-        //   onPressed: () => Navigator.pop(context), // Navigate back to main page
-        // ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             border: Border(
@@ -128,20 +123,23 @@ class _SettingsViewsState extends State<SettingsViews> {
             ),
             const SizedBox(height: 20),
             // Save Button
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
-                foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
+            Semantics(
+              label: 'Save new health goal settings',
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
+                  foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
+                ),
+                onPressed: () {
+                  // Update goals using the provider
+                  Provider.of<GoalProvider>(context, listen: false)
+                      .updateGoals(currentSleep, currentSteps, currentCalories);
+                  Provider.of<HealthProvider>(context, listen: false)
+                      .updateGoals(context);
+                  // Navigator.pop(context); // Optionally navigate back
+                },
+                child: const Text('Save'),
               ),
-              onPressed: () {
-                // Update goals using the provider
-                Provider.of<GoalProvider>(context, listen: false)
-                    .updateGoals(currentSleep, currentSteps, currentCalories);
-                Provider.of<HealthProvider>(context, listen: false)
-                    .updateGoals(context);
-                // Navigator.pop(context); // Optionally navigate back
-              },
-              child: const Text('Save'),
             ),
           ],
         ),

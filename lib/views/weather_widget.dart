@@ -27,7 +27,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   void _startWeatherUpdateTimer() {
     _timer = Timer.periodic(const Duration(seconds: 30), (timer) {
       final weatherProvider =
-        Provider.of<WeatherProvider>(context, listen: false);
+          Provider.of<WeatherProvider>(context, listen: false);
       final periodicWeatherCheck = WeatherChecker(weatherProvider);
       periodicWeatherCheck.fetchAndUpdateCurrentSeattleWeather();
       // _fetchWeather();
@@ -82,7 +82,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         WeatherCondition.sunny => Icons.wb_sunny,
       };
       final textToShow = switch (condition) {
-        WeatherCondition.gloomy => 'It is gloomy outside! \n Do some wall sits!',
+        WeatherCondition.gloomy =>
+          'It is gloomy outside! \n Do some wall sits!',
         WeatherCondition.rainy =>
           'It is raining outside! \n Find a gym to workout!',
         WeatherCondition.sunny =>
@@ -99,24 +100,24 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             elevation: 5,
             shadowColor: Colors.grey,
             color: Theme.of(context).colorScheme.surfaceTint,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    textToShow,
-                    style: TextStyle(
-                      fontSize: 12, 
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.surface,
-                      // overflow:
-                    ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  textToShow,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
-                  const SizedBox(width: 10),
-                  Icon(iconToShow, size: 24, color: Theme.of(context).colorScheme.onPrimary,),
-                ],
-              ),
+                ),
+                const SizedBox(width: 10),
+                Icon(
+                  iconToShow,
+                  size: 24,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ],
             ),
           ),
         ),

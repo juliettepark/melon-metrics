@@ -324,18 +324,21 @@ String _determineCondition(double score) {
           ),
           const SizedBox(height: 16),
           // Button for logging today's well being score
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
-              foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
+          Semantics(
+            label: 'Log today\'s health in calendar',
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
+                foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
+              ),
+              onPressed: () async {
+                final healthProvider = Provider.of<HealthProvider>(context, listen: false);
+                final double wellBeingScore = healthProvider.wellbeingScore; // Get the score
+                String condition = _determineCondition(wellBeingScore);
+                await _saveCondition(condition);
+              },
+              child: const Text('Log Today\'s Score'),
             ),
-            onPressed: () async {
-              final healthProvider = Provider.of<HealthProvider>(context, listen: false);
-              final double wellBeingScore = healthProvider.wellbeingScore; // Get the score
-              String condition = _determineCondition(wellBeingScore);
-              await _saveCondition(condition);
-            },
-            child: const Text('Log Today\'s Score'),
           ),
           const SizedBox(height: 16),
           _buildKeySection(),
