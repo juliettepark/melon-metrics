@@ -245,7 +245,10 @@ String _determineCondition(double score) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hoot Health History'),
+        title: Semantics (
+          label: 'Health History Calendar',
+          child: const Text('Hoot Health History'),
+        ),
       ),
       body: Column(
         children: [
@@ -274,7 +277,9 @@ String _determineCondition(double score) {
 
                 if (condition != null) {
                   // If the day has a condition, apply the corresponding color
-                  return Container(
+                  return Semantics(
+                    label: 'Day ${day.day} with $condition',
+                    child: Container(
                     decoration: BoxDecoration(
                       color: _conditionColors[condition], // Use the condition's color
                       shape: BoxShape.circle,
@@ -283,7 +288,8 @@ String _determineCondition(double score) {
                     child: Text(
                       '${day.day}',
                       style: const TextStyle(color: Colors.white), // White text for colored days
-                    ),
+                      ),
+                    )
                   );
                 }
 
@@ -298,7 +304,9 @@ String _determineCondition(double score) {
               },
               todayBuilder: (context, day, focusedDay) {
                 String? condition = _getConditionForDay(day);
-                return Container(
+                return Semantics(
+                  label: 'Today, Day ${day.day} with ${condition ?? 'no condition'}',
+                  child: Container(
                   decoration: BoxDecoration(
                     // Use condition's color if available
                     // Transparent if no condition
@@ -317,6 +325,7 @@ String _determineCondition(double score) {
                       color: condition != null ? Colors.white : Colors.blueAccent, // Change text color
                     ),
                   ),
+                  )
                 );
               },
             ),
