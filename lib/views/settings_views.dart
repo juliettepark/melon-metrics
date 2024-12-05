@@ -108,7 +108,8 @@ class _SettingsViewsState extends State<SettingsViews> {
             const SizedBox(height: 10),
             // Calories input field
             Semantics(
-              label: 'Edit goal for daily calories burned. Current goal: $currentCalories',
+              label:
+                  'Edit goal for daily calories burned. Current goal: $currentCalories',
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -140,15 +141,21 @@ class _SettingsViewsState extends State<SettingsViews> {
               label: 'Save new health goal settings',
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
-                  foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
-                ),
+                    backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
+                    foregroundColor: const Color.fromRGBO(246, 200, 177, 1)),
                 onPressed: () {
                   // Update goals using the provider
+                  final goals = GoalSetting(
+                      sleepHours: currentSleep,
+                      steps: currentSteps,
+                      calories: currentCalories);
                   Provider.of<GoalProvider>(context, listen: false)
-                      .updateGoals(currentSleep, currentSteps, currentCalories);
+                      .updateGoals(goals);
                   Provider.of<HealthProvider>(context, listen: false)
-                      .updateGoals(context);
+                      .updateGoals(goals);
+
+                  // unfocus the text fields so the keyboard will not cover the navigation bar
+                  FocusScope.of(context).unfocus();
                 },
                 child: const Text('Save'),
               ),

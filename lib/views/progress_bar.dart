@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
-import 'package:provider/provider.dart';
 
 // Represents the set of progress bars that indicate to the user
 // their progress towards each of their health goals.
 class ProgressBar extends StatelessWidget {
-
   final HealthProvider healthProvider;
   final GoalProvider goalProvider;
-  const ProgressBar({super.key, required this.healthProvider, required this.goalProvider});
+  const ProgressBar(
+      {super.key, required this.healthProvider, required this.goalProvider});
 
   @override
   Widget build(BuildContext context) {
-    // final singleUseHealthProvider = Provider.of<HealthProvider>(context, listen:false);
-    final singleUseGoalProvider = Provider.of<GoalProvider>(context, listen:false);
-
     // Create the 3 progress bars indicating progress towards
     // Sleep, Steps, and Calories burned goals
     return Column(
       children: [
-        makeSingleBar(barIcon: Icons.nightlight, 
-                      goal: singleUseGoalProvider.sleepHours.toDouble(), 
-                      actual: goalProvider.sleepHours.toDouble(), 
-                      fillBar: const Color.fromRGBO(116, 84, 106, 1,),
-                      iconlabel: 'Sleep hours'
-                      ),
-        makeSingleBar(barIcon: Icons.directions_walk_rounded, 
-                      goal: goalProvider.steps.toDouble(), 
-                      actual: healthProvider.steps.toDouble(), 
-                      fillBar: Theme.of(context).colorScheme.surfaceTint,
-                      iconlabel: 'Steps walked'),
-        makeSingleBar(barIcon: Icons.fireplace_outlined, 
-                      goal: goalProvider.calories.toDouble(),
-                      actual: healthProvider.caloriesBurned, 
-                      fillBar: const Color.fromRGBO(246, 126, 125, 1),
-                      iconlabel: 'Calories Burned'),
+        makeSingleBar(
+            barIcon: Icons.nightlight,
+            goal: goalProvider.sleepHours.toDouble(),
+            actual: healthProvider.sleepHours.toDouble(),
+            fillBar: const Color.fromRGBO(
+              116,
+              84,
+              106,
+              1,
+            ),
+            iconlabel: 'Sleep hours'),
+        makeSingleBar(
+            barIcon: Icons.directions_walk_rounded,
+            goal: goalProvider.steps.toDouble(),
+            actual: healthProvider.steps.toDouble(),
+            fillBar: Theme.of(context).colorScheme.surfaceTint,
+            iconlabel: 'Steps walked'),
+        makeSingleBar(
+            barIcon: Icons.fireplace_outlined,
+            goal: goalProvider.calories.toDouble(),
+            actual: healthProvider.caloriesBurned,
+            fillBar: const Color.fromRGBO(246, 126, 125, 1),
+            iconlabel: 'Calories Burned'),
       ],
     );
   }
@@ -50,12 +53,13 @@ class ProgressBar extends StatelessWidget {
   //           calories burned the user actually got
   // - fillBar: Color to fill progress bar with
   // - iconlabel: Description of what kind of health
-  //              metric this bar represents 
-  Widget makeSingleBar({required IconData barIcon, 
-                        required double goal, 
-                        required double actual, 
-                        required Color fillBar,
-                        required String iconlabel}) {
+  //              metric this bar represents
+  Widget makeSingleBar(
+      {required IconData barIcon,
+      required double goal,
+      required double actual,
+      required Color fillBar,
+      required String iconlabel}) {
     // Calculate the progress as a percentage
     double progress;
 
@@ -68,7 +72,6 @@ class ProgressBar extends StatelessWidget {
     }
     progress = progress > 1.0 ? 1.0 : progress;
     // progress = goal == 0 || actual == 0 ? 0 : progress;
-    
 
     return Semantics(
       label: '$iconlabel is $progress out of $goal',
@@ -78,7 +81,11 @@ class ProgressBar extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 4.0),
-              child: Icon(barIcon, size: 30, semanticLabel: iconlabel,),
+              child: Icon(
+                barIcon,
+                size: 30,
+                semanticLabel: iconlabel,
+              ),
             ),
             Expanded(
               child: LinearProgressIndicator(

@@ -27,7 +27,7 @@ void main() async {
       child: MultiProvider(
         providers: [
           // Data is held in 3 different Providers
-          ChangeNotifierProvider(create: (context) => HealthProvider()),
+          ChangeNotifierProvider(create: (context) => HealthProvider(isar)),
           ChangeNotifierProvider(create: (context) => GoalProvider(isar)),
           ChangeNotifierProvider(create: (context) => WeatherProvider()),
           ChangeNotifierProvider(create: (context) => PositionProvider()),

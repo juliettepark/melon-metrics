@@ -82,6 +82,11 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
       final condition = weatherProvider.condition;
 
+      final iconLabel = switch (condition) {
+        WeatherCondition.gloomy => 'Gloomy',
+        WeatherCondition.rainy => 'Rainy',
+        WeatherCondition.sunny => 'Sunny',
+      };
       final iconToShow = switch (condition) {
         WeatherCondition.gloomy => Icons.cloud,
         WeatherCondition.rainy => Icons.umbrella,
@@ -118,11 +123,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Icon(
-                  iconToShow,
-                  size: 24,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
+                Semantics(
+                  label: iconLabel,
+                  child: Icon(
+                    iconToShow,
+                    size: 24,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                )
               ],
             ),
           ),

@@ -8,29 +8,32 @@ class GoalProvider extends ChangeNotifier {
   // If no settings have been configured before, will default to these
   GoalSetting goals = GoalSetting(sleepHours: 7, steps: 1000, calories: 100);
 
-  GoalProvider(Isar isar): _isar = isar {
+  GoalProvider(Isar isar) : _isar = isar {
     List<GoalSetting> pastGoals = isar.goalSettings.where().findAllSync();
     if (pastGoals.isNotEmpty) {
       goals = pastGoals.last;
     }
   }
 
-  int get sleepHours { return goals.sleepHours; }
-  int get steps { return goals.steps; }
-  int get calories { return goals.calories; }
+  int get sleepHours {
+    return goals.sleepHours;
+  }
+
+  int get steps {
+    return goals.steps;
+  }
+
+  int get calories {
+    return goals.calories;
+  }
 
   /// Updates the current goals for main page
   ///
   /// Parameters:
-  ///     -newSleep: new sleep goal
-  ///     -newSteps: new step goal
-  ///     -newScreenTime: new screen time goal
-  void updateGoals(int newSleepHours, int newSteps, int newCalories) async {
-    goals = GoalSetting(sleepHours: newSleepHours, 
-                        steps: newSteps, calories: 
-                        newCalories);
+  /// - goals: the new goals to be set
+  Future<void> updateGoals(GoalSetting goals) async {
+    this.goals = goals;
 
-    // also track in isar
     await _isar.writeTxn(() async {
       await _isar.goalSettings.put(goals); // insert & update
     });

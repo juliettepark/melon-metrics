@@ -28,10 +28,9 @@ class WeatherChecker {
   /// - A Future that completes when the weather has been fetched and updated.
   Future<void> fetchAndUpdateCurrentSeattleWeather() async {
     try {
-      final latitude = await positionProvider.getLatitude();
-      final longitude = await positionProvider.getLongitude();
-      final gridResponse = await client.get(
-          Uri.parse('https://api.weather.gov/points/$latitude,$longitude'));
+      final position = await positionProvider.determinePosition();
+      final gridResponse = await client.get(Uri.parse(
+          'https://api.weather.gov/points/${position.latitude},${position.longitude}'));
       final gridParsed = (jsonDecode(gridResponse.body));
       final String? forecastURL = gridParsed['properties']?['forecast'];
       if (forecastURL == null) {
