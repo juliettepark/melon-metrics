@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:melon_metrics/providers/goal_provider.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
-import 'package:provider/provider.dart';
 
 // Represents the set of progress bars that indicate to the user
 // their progress towards each of their health goals.
