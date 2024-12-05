@@ -9,6 +9,8 @@ class ProgressBar extends StatelessWidget {
   final GoalProvider goalProvider;
   const ProgressBar(
       {super.key, required this.healthProvider, required this.goalProvider});
+  const ProgressBar(
+      {super.key, required this.healthProvider, required this.goalProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,29 @@ class ProgressBar extends StatelessWidget {
     // Sleep, Steps, and Calories burned goals
     return Column(
       children: [
+        makeSingleBar(
+            barIcon: Icons.nightlight,
+            goal: goalProvider.sleepHours.toDouble(),
+            actual: healthProvider.sleepHours.toDouble()/60,
+            fillBar: const Color.fromRGBO(
+              116,
+              84,
+              106,
+              1,
+            ),
+            iconlabel: 'Sleep hours'),
+        makeSingleBar(
+            barIcon: Icons.directions_walk_rounded,
+            goal: goalProvider.steps.toDouble(),
+            actual: healthProvider.steps.toDouble(),
+            fillBar: Theme.of(context).colorScheme.surfaceTint,
+            iconlabel: 'Steps walked'),
+        makeSingleBar(
+            barIcon: Icons.fireplace_outlined,
+            goal: goalProvider.calories.toDouble(),
+            actual: healthProvider.caloriesBurned,
+            fillBar: const Color.fromRGBO(246, 126, 125, 1),
+            iconlabel: 'Calories Burned'),
         makeSingleBar(
             barIcon: Icons.nightlight,
             goal: goalProvider.sleepHours.toDouble(),
@@ -60,11 +85,18 @@ class ProgressBar extends StatelessWidget {
       required double actual,
       required Color fillBar,
       required String iconlabel}) {
+  //              metric this bar represents
+  Widget makeSingleBar(
+      {required IconData barIcon,
+      required double goal,
+      required double actual,
+      required Color fillBar,
+      required String iconlabel}) {
     // Calculate the progress as a percentage
     double progress;
 
     // Make sure the progress doesn't exceed 100% (i.e., 1.0)
-    // print('Goal: ${goal}, Actual $actual');
+    print('Goal: ${goal}, Actual $actual for $iconlabel');
     if (goal != 0.0 && actual != 0.0) {
       progress = actual / goal;
     } else {
@@ -81,6 +113,11 @@ class ProgressBar extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 4.0),
+              child: Icon(
+                barIcon,
+                size: 30,
+                semanticLabel: iconlabel,
+              ),
               child: Icon(
                 barIcon,
                 size: 30,
@@ -106,3 +143,4 @@ class ProgressBar extends StatelessWidget {
     );
   }
 }
+

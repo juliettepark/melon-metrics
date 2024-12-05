@@ -137,6 +137,21 @@ class HealthProvider extends flame.Component
     _wellbeingScore = wellbeingScore;
   }
 
+  // Converts the well-being score into one of 3 states:
+  // Good, Okay, Poor based on what "third" the score falls
+  // into out of a maximum of 100
+  String getHealthCondition() {
+    String condition;
+    if (_wellbeingScore >= 66) {
+      condition = "Good";
+    } else if (_wellbeingScore < 33) {
+      condition = "Poor";
+    } else {
+      condition = "Okay";
+    }
+    return condition;
+  }
+
   /// Gets the calories burned for the current day.
   Future<void> fetchCalories() async {
     DateTime now = DateTime.now();
