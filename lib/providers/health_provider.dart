@@ -4,9 +4,9 @@ import 'package:flame/components.dart'
     as flame; // import as alias to not confuse the Timer
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
+import 'package:isar/isar.dart';
+import 'package:melon_metrics/models/goal_setting.dart';
 import 'package:melon_metrics/models/virtual_pet_game.dart';
-import 'package:melon_metrics/providers/goal_provider.dart';
-import 'package:provider/provider.dart';
 
 class HealthProvider extends flame.Component
     with flame.HasGameRef<VirtualPetGame>, ChangeNotifier {
@@ -18,9 +18,7 @@ class HealthProvider extends flame.Component
   flame.Timer? animateTimer;
   double _wellbeingScore = 0.0;
 
-  int _goalSleepHours = 8;
-  int _goalSteps = 10000;
-  int _goalCalories = 2000;
+  GoalSetting _goals = GoalSetting(sleepHours: 7, steps: 1000, calories: 100);
 
   double get caloriesBurned => _caloriesBurned;
   bool get isPermissionGranted => _isPermissionGranted;
@@ -28,7 +26,15 @@ class HealthProvider extends flame.Component
   int get steps => _steps;
   double get wellbeingScore => _wellbeingScore;
 
-  HealthProvider() {
+  HealthProvider(Isar? isar) {
+    // TODO: make isar non-null; pass it in virtual_pet_name.dart
+    if (isar != null) {
+      List<GoalSetting> pastGoals = isar.goalSettings.where().findAllSync();
+      if (pastGoals.isNotEmpty) {
+        _goals = pastGoals.last;
+      }
+    }
+
     requestPermission();
     _startAutoUpdate();
   }
@@ -107,19 +113,19 @@ class HealthProvider extends flame.Component
     double score = 0;
     int count = 0;
     if (_caloriesBurned > 0) {
-      final caloriesScore = (_caloriesBurned / _goalCalories) * 100;
+      final caloriesScore = (_caloriesBurned / _goals.calories) * 100;
       score += caloriesScore;
       count++;
     }
 
     if (_sleepHours > 0) {
-      final sleepScore = (_sleepHours / _goalSleepHours) * 100;
+      final sleepScore = (_sleepHours / _goals.sleepHours) * 100;
       score += sleepScore;
       count++;
     }
 
     if (_steps > 0) {
-      final stepScore = (_steps / _goalSteps) * 100;
+      final stepScore = (_steps / _goals.steps) * 100;
       score += stepScore;
       count++;
     }
@@ -211,15 +217,12 @@ class HealthProvider extends flame.Component
     return sum;
   }
 
-  /// Updates the current goals from the goal provider.
+  /// Updates the current goals.
   ///
   /// Parameters:
-  /// - context: The build context.
-  void updateGoals(BuildContext context) {
-    GoalProvider goalProvider =
-        Provider.of<GoalProvider>(context, listen: false);
-    _goalSleepHours = goalProvider.sleepHours;
-    _goalSteps = goalProvider.steps;
-    _goalCalories = goalProvider.calories;
+  /// - goals: The new goals to be set.
+  void updateGoals(GoalSetting goals) {
+    _goals = goals;
+    notifyListeners();
   }
 }
