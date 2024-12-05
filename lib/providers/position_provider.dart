@@ -5,63 +5,14 @@ import 'package:geolocator/geolocator.dart';
 class PositionProvider extends ChangeNotifier {
   double? _latitude;
   double? _longitude;
-  String _error = '';
-  Timer? _positionTimer;
 
   bool get hasPosition => _latitude != null && _longitude != null;
-  String get error => _error;
-
-  PositionProvider() {
-    _updatePosition();
-    _startPositionTimer();
-  }
-
-  Future<double> getLatitude() async {
-    if (_latitude == null) {
-      await _updatePosition();
-    }
-    return _latitude!;
-  }
-
-  Future<double> getLongitude() async {
-    if (_longitude == null) {
-      await _updatePosition();
-    }
-    return _longitude!;
-  }
-
-  void _startPositionTimer() {
-    _positionTimer = Timer.periodic(const Duration(minutes: 15), (timer) {
-      _updatePosition();
-    });
-  }
-
-  Future<void> _updatePosition() async {
-    try {
-      final Position position = await _determinePosition();
-      _latitude = position.latitude;
-      _longitude = position.longitude;
-      _error = '';
-      notifyListeners();
-    } catch (error) {
-      _latitude = null;
-      _longitude = null;
-      _error = error.toString();
-      notifyListeners();
-    }
-  }
-
-  @override
-  void dispose() {
-    _positionTimer?.cancel();
-    super.dispose();
-  }
 
   /// Determine the current position of the device.
   ///
   /// When the location services are not enabled or permissions
   /// are denied the `Future` will return an error.
-  Future<Position> _determinePosition() async {
+  Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
