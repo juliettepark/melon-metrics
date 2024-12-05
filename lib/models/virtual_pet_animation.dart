@@ -107,7 +107,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       position.x -= 1;
     }
 
-    if (gameRef.virtualPetData.healthState == 2) {
+    if (gameRef.virtualPetData.healthState.value == 2) {
       // print("this is an if case, happy healthy");
       if (gameRef.virtualPetData.walkCycle.value < 3) {
         changeState(VirtualPetAnimationState.idle);
@@ -136,7 +136,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       }
     }
 
-    else if (gameRef.virtualPetData.healthState == 0) {
+    else if (gameRef.virtualPetData.healthState.value == 0) {
       // print("this is an else if case, sad unhappy");
       if (gameRef.virtualPetData.walkCycle.value < 3) {
         changeState(VirtualPetAnimationState.sad);
