@@ -87,7 +87,7 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // REFRESH HEALTH DATA BUTTON
               ElevatedButton(
                 onPressed: () => getHealthData(context),

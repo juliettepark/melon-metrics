@@ -9,6 +9,8 @@ import 'package:melon_metrics/models/virtual_pet_game.dart';
 const double virtualPetSize = 250;
 bool userTriggeredAnimation = false;
 
+/// This is the main animation class. It defines the update function that Flame calls
+/// for each of dt. This class describes the various movements, changes in state and direction too
 class VirtualPetAnimation extends SpriteAnimationComponent
     with HasGameRef<VirtualPetGame>, TapCallbacks {
   static final VirtualPetAnimationDataConfig _animationDataConfig =
@@ -178,7 +180,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       } else if (gameRef.virtualPetData.walkCycle.value < 7) {
         changeState(VirtualPetAnimationState.idle);
       } else if (gameRef.virtualPetData.walkCycle.value < 9) {
-        changeState(VirtualPetAnimationState.jump);
+        changeState(VirtualPetAnimationState.idle);
       } else if (gameRef.virtualPetData.walkCycle.value < 10) {
         changeState(VirtualPetAnimationState.idle);
       } else if (gameRef.virtualPetData.walkCycle.value < 12) {
@@ -188,7 +190,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
           facingRight = true;
         }
       } else if (gameRef.virtualPetData.walkCycle.value < 14) {
-        changeState(VirtualPetAnimationState.jump);
+        changeState(VirtualPetAnimationState.idle);
       } else if (gameRef.virtualPetData.walkCycle.value <= 16) {
         changeState(VirtualPetAnimationState.idle);
       }

@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:melon_metrics/models/virtual_pet_animation.dart';
 import 'dart:async';
 
+/// This class creates the actual pet! It adds the initial animations, data and styling.
 class VirtualPet extends Component with HasGameRef {
   late VirtualPetAnimation virtualPetAnimation;
 
