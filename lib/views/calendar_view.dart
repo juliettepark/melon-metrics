@@ -240,7 +240,6 @@ String _determineCondition(double score) {
   }
 }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

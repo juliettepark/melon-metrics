@@ -19,7 +19,7 @@ class ProgressBar extends StatelessWidget {
         makeSingleBar(
             barIcon: Icons.nightlight,
             goal: goalProvider.sleepHours.toDouble(),
-            actual: healthProvider.sleepHours.toDouble(),
+            actual: healthProvider.sleepHours.toDouble()/60,
             fillBar: const Color.fromRGBO(
               116,
               84,
@@ -64,7 +64,7 @@ class ProgressBar extends StatelessWidget {
     double progress;
 
     // Make sure the progress doesn't exceed 100% (i.e., 1.0)
-    // print('Goal: ${goal}, Actual $actual');
+    print('Goal: ${goal}, Actual $actual for $iconlabel');
     if (goal != 0.0 && actual != 0.0) {
       progress = actual / goal;
     } else {

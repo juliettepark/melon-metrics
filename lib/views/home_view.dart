@@ -95,7 +95,10 @@ class HomeView extends StatelessWidget {
                   backgroundColor: const Color.fromRGBO(116, 84, 106, 1),
                   foregroundColor: const Color.fromRGBO(246, 200, 177, 1)
                 ),
-                child: const Text('Refresh Health Data'),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Current Health: ${healthProvider.getHealthCondition()}\nRefresh Data', textAlign: TextAlign.center,)
+                ),
               ),
             ],
           ),
