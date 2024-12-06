@@ -87,7 +87,7 @@ class VirtualPetAnimation extends SpriteAnimationComponent
       await loadAnimations();  // Ensure this is awaited
       animation = idleAnimation;  // Now it’s safe to assign the animation
     } catch(e) {
-      print("OMG ALERT: $e");
+      // print("OMG ALERT: $e");
     }
   }
 

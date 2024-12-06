@@ -220,6 +220,9 @@ Future<void> _saveCondition(String condition) async {
   // Rebuild the calendar to apply the changes
   setState(() {});
 
+  // If page still mounted
+  if (!mounted) return;
+  
   // Message if saved
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text('Condition saved for ${DateFormat('yyyy-MM-dd').format(today)}')),

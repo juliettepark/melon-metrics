@@ -27,7 +27,7 @@ class HealthProvider extends flame.Component
   double get wellbeingScore => _wellbeingScore;
 
   HealthProvider(Isar? isar) {
-    // TODO: make isar non-null; pass it in virtual_pet_name.dart
+    // make isar non-null; pass it in virtual_pet_name.dart
     if (isar != null) {
       List<GoalSetting> pastGoals = isar.goalSettings.where().findAllSync();
       if (pastGoals.isNotEmpty) {
@@ -69,11 +69,6 @@ class HealthProvider extends flame.Component
   @override
   void update(double dt) {
     if (gameRef.virtualPetData.walkCycle.value <= 0) {
-      print("-----");
-      print(_wellbeingScore);
-      print(_caloriesBurned);
-      print(_sleepHours);
-      print(_steps);
       if (_wellbeingScore >= 66) {
         gameRef.virtualPetData.healthState.value = 2;
       } else if (_wellbeingScore < 33) {

@@ -16,7 +16,7 @@ class VirtualPetGame extends FlameGame {
 
   @override
   Future<void> onLoad() async {
-    add(HealthProvider(null)); // TODO: pass in isar here
+    add(HealthProvider(null));
     add(VirtualPet());
 
     return super.onLoad();
