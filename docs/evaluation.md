@@ -10,3 +10,8 @@ asking them to fill out this [Google form](https://docs.google.com/forms/d/e/1FA
 score we received from the ten users was **95**.
 
 The results are visible at [this spreadsheet](https://docs.google.com/spreadsheets/d/1Uv_dgJJs4iXXAHmrGlCrt-y5F6-9xZ0Z223pziuQeIs/edit?usp=sharing).
+
+To construct a sample, we asked acquaintances that were most immediately available.
+We hoped to randomize our testers by asking many people and getting people based on availability
+rather than who we knew well. We also informed them that the scores do not impact a grade and urged
+testers to present their honest opinions.
