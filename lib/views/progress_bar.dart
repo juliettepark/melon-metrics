@@ -64,7 +64,7 @@ class ProgressBar extends StatelessWidget {
     double progress;
 
     // Make sure the progress doesn't exceed 100% (i.e., 1.0)
-    print('Goal: ${goal}, Actual $actual for $iconlabel');
+    // print('Goal: ${goal}, Actual $actual for $iconlabel');
     if (goal != 0.0 && actual != 0.0) {
       progress = actual / goal;
     } else {
