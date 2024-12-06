@@ -17,6 +17,9 @@ class VirtualPet extends Component with HasGameRef {
     add(virtualPetAnimation);
   }
 
+  /// Initializes the virtual pet using the parents update.
+  /// Parameters: None
+  /// Returns: A Future that completes when initialization is done
   @override
   Future<void> update(double dt) async {
     super.update(dt);

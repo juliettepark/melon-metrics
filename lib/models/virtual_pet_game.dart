@@ -18,6 +18,10 @@ class VirtualPetGame extends FlameGame {
   Color backgroundColor() => const Color(
       0x00000000); // Flame defaults to black for some reason. This is transparent
 
+  /// Initializes the game by adding necessary components.
+  /// Adds a HealthProvider and a VirtualPet to the game.
+  /// Parameters: None
+  /// Returns: A Future that completes when initialization is done
   @override
   Future<void> onLoad() async {
     add(HealthProvider(null));

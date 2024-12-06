@@ -35,6 +35,11 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     debugMode = true;
   }
 
+  /// Handles tap events on the virtual pet.
+  /// Triggers a jump animation and temporarily disables walk cycle logic.
+  /// Parameters:
+  ///   event: The TapDownEvent that triggered this method
+  /// Returns: None
   @override
   void onTapDown(TapDownEvent event) {
     // Trigger jump animation on tap
@@ -48,6 +53,11 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     });
   }
 
+  /// Changes the animation state of the virtual pet.
+  /// Updates the current animation and direction based on the new state.
+  /// Parameters:
+  ///   animationState: The new VirtualPetAnimationState to apply
+  /// Returns: void
   void changeState(VirtualPetAnimationState animationState) {
     // print("Changing to state: $animationState");
     switch (animationState) {
@@ -76,6 +86,10 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     }
   }
 
+  /// Initializes the virtual pet animation component.
+  /// Sets the initial position and loads animations (by defaalt idle state)
+  /// Parameters: None
+  /// Returns: A Future that completes when initialization is done
   @override
   Future<void> onLoad() async {
     try {
@@ -91,6 +105,12 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     }
   }
 
+  /// Updates the virtual pet's state and position each frame.
+  /// Handles movement and animation changes based on health and walk cycle.
+  /// IMPT: Overrides flame's update, and this is called every half second or so
+  /// Parameters:
+  ///   dt: The time elapsed since the last update
+  /// Returns: A Future that completes when the update is done
   @override
   Future<void> update(double dt) async {
     super.update(dt);
@@ -198,6 +218,10 @@ class VirtualPetAnimation extends SpriteAnimationComponent
     // Implement movement based on direction
   }
 
+  /// Loads all animations for the virtual pet.
+  /// Initializes different animations for various states.
+  /// Parameters: None
+  /// Returns: A Future that completes when all animations are loaded
   Future<void> loadAnimations() async {
     idleAnimation = SpriteAnimation.fromFrameData(
         await gameRef.images.load(_animationDataConfig.idleAnimationData.animationPath),
