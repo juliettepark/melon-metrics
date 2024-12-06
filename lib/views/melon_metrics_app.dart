@@ -33,7 +33,7 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
+    // final ThemeData theme = Theme.of(context);
     return Scaffold(
         // appBar: AppBar(
         //   backgroundColor: Theme.of(context).colorScheme.surface,
