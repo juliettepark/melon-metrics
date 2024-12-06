@@ -1,3 +1,9 @@
-You should evaluate the usability of your application, as well as its utility – how well it addresses the need you have designed for.
-You must SUS Test your app with at least 9 people.
-You may also use additional methods to evaluate your app, including interviews and surveys (but if you survey, we want to know how you constructed an appropriate sample).
+The usability of our app is flexible because of the customizable health goal
+parameters which make it easy to scale the goals you want to set for yourself.
+The utility of our app addresses the need well since our mission was to create
+a simple and fun app that can help users keep track of their health. 
+
+The app was SUS tested by performing a live demo to ten different users and 
+asking them to fill out a form with the SUS testing questions. ​The average 
+score was then calculated for each SUS testing prompt and the SUS testing 
+score we received from the ten users was 95.

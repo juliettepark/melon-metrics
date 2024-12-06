@@ -156,6 +156,14 @@ class _SettingsViewsState extends State<SettingsViews> {
 
                   // unfocus the text fields so the keyboard will not cover the navigation bar
                   FocusScope.of(context).unfocus();
+
+                    // Show a snackbar with "Goals saved!"
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Goals saved!'),
+                      duration: Duration(seconds: 2), // Display for 2 seconds
+                    ),
+                  );
                 },
                 child: const Text('Save'),
               ),
