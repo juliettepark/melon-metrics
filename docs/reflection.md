@@ -3,8 +3,8 @@
 In docs/reflection.md you should
 Identify which of the course topics you applied (e.g. secure data persistence) and describe how you applied them. In addition to the list of topics enumerated above, you must also describe how your app design reflects what you learned about the Properties of People.
 
-- Data Persistence with Isar​: 
-    Our calendar view and goal settings save the user's data into the Isar database. 
+- Data Persistence with Isar​:
+    Our calendar view and goal settings save the user's data into the Isar database.
 
 - Stateless & stateful widgets:
     For instance, ProgressBar is a Stateless widget and CalendarView is a Stateful widget
@@ -64,6 +64,8 @@ Remember to include all online resources such as Stack Overflow, blogs, students
 
 **Finally: thinking about CSE 340 as a whole:
 What do you feel was the most valuable thing you learned in CSE 340 that will help you beyond this class, and why?**
+
+Pranav: I found the entire class to be incredible useful. I really liked how practical the course was and it allowed us to build projects and apps. The most important thing I learnt in CSE 340 was probably teamwork, especially in a coding context where I am working with people who I have not chosen. This I am sure is very useful skill, especially because in industry I will not get to choose who I work with all the time.
 
 Marco: I think the most valuable thing I learned in 340 was how to design with accessibility and testing it with strategies
 like the WebAim checker and Accessibilty Inspector. It will help me be mindful of UIs or frontend elements that I may contribute
