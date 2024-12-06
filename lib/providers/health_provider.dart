@@ -27,7 +27,6 @@ class HealthProvider extends flame.Component
   double get wellbeingScore => _wellbeingScore;
 
   HealthProvider(Isar? isar) {
-    // make isar non-null; pass it in virtual_pet_name.dart
     if (isar != null) {
       List<GoalSetting> pastGoals = isar.goalSettings.where().findAllSync();
       if (pastGoals.isNotEmpty) {

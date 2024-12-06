@@ -55,8 +55,12 @@ Marco: I think the most valuable thing I learned in 340 was how to design with a
 like the WebAim checker and Accessibilty Inspector. It will help me be mindful of UIs or frontend elements that I may contribute
 to.
 
+Shangzhen: I think the most valuable thing I learned in CSE 340 was how to develop a cross-platform app using Flutter and making it accessible to all people. This will help me in the future when I develop apps for different platforms and different people.
+
+
 
 If you could go back and give yourself 2-3 pieces of advice at the beginning of the class, what would you say and why? (Alternatively: what 2-3 pieces of advice would you give to future students who take CSE 340 and why?)
 
 Marco: Use the ed board, Go to OH if you need help, and make your final project a fun idea
 
+Shangzhen: Ask questions on Ed. Don't panic for autograder tests as they are sometimes false negatives. Start early on assignments.
