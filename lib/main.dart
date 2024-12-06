@@ -23,7 +23,7 @@ void main() async {
       directory: dir.path);
   runApp(
     InheritedVirtualPetGameWrapper(
-      virtualPetGame: VirtualPetGame(),
+      virtualPetGame: VirtualPetGame(isar),
       child: MultiProvider(
         providers: [
           // Data is held in 3 different Providers

@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 import 'package:melon_metrics/models/virtual_pet.dart';
 import 'package:melon_metrics/models/virtual_pet_data.dart';
 import 'package:melon_metrics/providers/health_provider.dart';
@@ -9,6 +10,9 @@ import 'package:melon_metrics/providers/health_provider.dart';
 /// It feeds the data from virtual pet data into the game itself.
 class VirtualPetGame extends FlameGame {
   final VirtualPetData virtualPetData = VirtualPetData();
+  final Isar isar;
+
+  VirtualPetGame(this.isar);
 
   @override
   Color backgroundColor() => const Color(
