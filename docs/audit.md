@@ -6,6 +6,9 @@ Name: Hajin Shim
 App audited: HootHealth
 
 
+Commit ID: 062a7ec356386df6a8eea45352645c298307af74
+
+
 Date/Place of audit: CSE2, 12/02/2024
 
 
@@ -40,6 +43,7 @@ Possible Solution - A solution could be to change the icon color so that it beco
 Name: Yijia Zhao
 App audited: HootHealth
 Date/Place: 12/4/24, Apartment
+Commit ID: 904ce3bcefb3600e1e179b5c27dfae1cf5f182fe
 
 Device and settings used: iPhone with voice over inspector
 
