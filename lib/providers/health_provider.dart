@@ -69,19 +69,14 @@ class HealthProvider extends flame.Component
   @override
   void update(double dt) {
     if (gameRef.virtualPetData.walkCycle.value <= 0) {
-      print("-----");
-      print(_wellbeingScore);
-      print(_caloriesBurned);
-      print(_sleepHours);
-      print(_steps);
       if (getHealthCondition() == "Good") {
-        print("GOOD");
+        // print("GOOD");
         gameRef.virtualPetData.healthState.value = 2;
       } else if (getHealthCondition() == "Poor") {
-        print("BAD");
+        // print("BAD");
         gameRef.virtualPetData.healthState.value = 0;
       } else {
-        print("OK..." + getHealthCondition());
+        // print("OK..." + getHealthCondition());
         gameRef.virtualPetData.healthState.value = 1;
       }
       gameRef.virtualPetData.walkCycle.value = 16;
@@ -113,10 +108,6 @@ class HealthProvider extends flame.Component
   /// Returns:
   /// - The calculated wellbeing score on a 100 scale.
   void calculateWellbeingScore(GoalSetting goals) {
-    print("IMPORTANT--------------");
-    print(goals.calories);
-    print(goals.sleepHours);
-    print(goals.steps);
     double score = 0;
     int count = 0;
     if (_caloriesBurned > 0) {
@@ -158,7 +149,6 @@ class HealthProvider extends flame.Component
   // into out of a maximum of 100
   String getHealthCondition() {
     String condition;
-    print("MOST IMPORTANT $_wellbeingScore");
     if (_wellbeingScore >= 66) {
       condition = "Good";
     } else if (_wellbeingScore < 33) {
