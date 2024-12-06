@@ -62,7 +62,7 @@ class HealthProvider extends flame.Component
     await fetchCalories();
     await fetchSleepHours();
     await fetchSteps();
-    calculateWellbeingScore();
+    calculateWellbeingScore(_goals);
     notifyListeners();
   }
 
@@ -109,31 +109,40 @@ class HealthProvider extends flame.Component
   ///
   /// Returns:
   /// - The calculated wellbeing score on a 100 scale.
-  void calculateWellbeingScore() {
+  void calculateWellbeingScore(GoalSetting goals) {
     double score = 0;
     int count = 0;
     if (_caloriesBurned > 0) {
-      final caloriesScore = (_caloriesBurned / _goals.calories) * 100;
-      score += caloriesScore;
+      final caloriesScore = (_caloriesBurned / goals.calories) * 100;
+      if (caloriesScore > 100) {
+        score += 100;
+      } else {
+        score += caloriesScore;
+      }
       count++;
     }
 
     if (_sleepHours > 0) {
-      final sleepScore = (_sleepHours / _goals.sleepHours) * 100;
-      score += sleepScore;
+      final sleepScore = (_sleepHours / goals.sleepHours) * 100;
+      if (sleepScore > 100) {
+        score += 100;
+      } else {
+        score += sleepScore;
+      }
       count++;
     }
 
     if (_steps > 0) {
-      final stepScore = (_steps / _goals.steps) * 100;
-      score += stepScore;
+      final stepScore = (_steps / goals.steps) * 100;
+      if (stepScore > 100) {
+        score += 100;
+      } else {
+        score += stepScore;
+      }
       count++;
     }
 
     double wellbeingScore = count > 0 ? score / count : 0;
-    if (wellbeingScore > 100) {
-      wellbeingScore = 100;
-    }
     _wellbeingScore = wellbeingScore;
   }
 
@@ -169,12 +178,12 @@ class HealthProvider extends flame.Component
 
   /// Gets the sleep hours for the current day.
   Future<void> fetchSleepHours() async {
-    double sleepHours = await _getSleepFromWatch();
-    if (sleepHours <= 0) {
-      sleepHours = await getSleepFromPhone();
+    double sleepMinutes = await _getSleepFromWatch();
+    if (sleepMinutes <= 0) {
+      sleepMinutes = await getSleepFromPhone();
     }
 
-    _sleepHours = sleepHours;
+    _sleepHours = sleepMinutes / 60;
     notifyListeners();
   }
 
@@ -238,6 +247,7 @@ class HealthProvider extends flame.Component
   /// - goals: The new goals to be set.
   void updateGoals(GoalSetting goals) {
     _goals = goals;
+    calculateWellbeingScore(goals);
     notifyListeners();
   }
 }
