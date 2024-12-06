@@ -19,7 +19,7 @@ class ProgressBar extends StatelessWidget {
         makeSingleBar(
             barIcon: Icons.nightlight,
             goal: goalProvider.sleepHours.toDouble(),
-            actual: healthProvider.sleepHours.toDouble()/60,
+            actual: healthProvider.sleepHours.toDouble(),
             fillBar: const Color.fromRGBO(
               116,
               84,
