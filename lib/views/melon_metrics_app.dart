@@ -46,7 +46,7 @@ class _MelonMetricsAppState extends State<MelonMetricsApp> {
               _currentTabIndex = index;
             });
           },
-          indicatorColor: theme.primaryColor,
+          indicatorColor: Colors.white,
           selectedIndex: _currentTabIndex,
 
           // This defines what is in the nav bar

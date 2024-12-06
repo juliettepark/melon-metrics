@@ -18,7 +18,7 @@ HootHealth is an app where you can only take care of your pet by taking care of 
 By pulling metrics from the Health app on a mobile device, numbers such as
 1. Sleep hours
 2. Steps walked
-3. Calories burned
+3. Calories burned (proxy for exercise)
 
 each day all factor into a health score that determines the pet owlet's health.
 

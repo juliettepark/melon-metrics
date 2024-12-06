@@ -11,7 +11,7 @@ Date/Place of audit: CSE2, 12/02/2024
 
 Devices and settings used: IOS VoiceOver screen reader and WebAim Contrast Checker
 
-Strengths of the app: The app’s home screen has a very cute animation of the character the user can grow as well as clean emotes of sleep, walk, and water intake. There is also a calendar to keep track of progress which is very nice. 
+Strengths of the app: The app’s home screen has a very cute animation of the character the user can grow as well as clean emotes of sleep, walk, and water intake. There is also a calendar to keep track of progress which is very nice.
 
 
 Areas of weakness and suggested improvements:

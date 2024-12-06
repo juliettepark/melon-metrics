@@ -128,7 +128,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   child: Icon(
                     iconToShow,
                     size: 24,
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: Colors.white,
                   ),
                 )
               ],
