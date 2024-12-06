@@ -82,6 +82,8 @@ class equipped us with the skills to practice bringing whatever we dreamed up in
 
 **If you could go back and give yourself 2-3 pieces of advice at the beginning of the class, what would you say and why? (Alternatively: what 2-3 pieces of advice would you give to future students who take CSE 340 and why?)**
 
+Pranav: I would say that the most important thing is to  start early and use the resubmissions smartly rather than just to submit the first time. Also, office hours is a great resource!
+
 Marco: Use the ed board, Go to OH if you need help, and make your final project a fun idea
 
 Shangzhen: Ask questions on Ed. Don't panic for autograder tests as they are sometimes false negatives. Start early on assignments.
