@@ -9,8 +9,6 @@ class ProgressBar extends StatelessWidget {
   final GoalProvider goalProvider;
   const ProgressBar(
       {super.key, required this.healthProvider, required this.goalProvider});
-  const ProgressBar(
-      {super.key, required this.healthProvider, required this.goalProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +20,6 @@ class ProgressBar extends StatelessWidget {
             barIcon: Icons.nightlight,
             goal: goalProvider.sleepHours.toDouble(),
             actual: healthProvider.sleepHours.toDouble()/60,
-            fillBar: const Color.fromRGBO(
-              116,
-              84,
-              106,
-              1,
-            ),
-            iconlabel: 'Sleep hours'),
-        makeSingleBar(
-            barIcon: Icons.directions_walk_rounded,
-            goal: goalProvider.steps.toDouble(),
-            actual: healthProvider.steps.toDouble(),
-            fillBar: Theme.of(context).colorScheme.surfaceTint,
-            iconlabel: 'Steps walked'),
-        makeSingleBar(
-            barIcon: Icons.fireplace_outlined,
-            goal: goalProvider.calories.toDouble(),
-            actual: healthProvider.caloriesBurned,
-            fillBar: const Color.fromRGBO(246, 126, 125, 1),
-            iconlabel: 'Calories Burned'),
-        makeSingleBar(
-            barIcon: Icons.nightlight,
-            goal: goalProvider.sleepHours.toDouble(),
-            actual: healthProvider.sleepHours.toDouble(),
             fillBar: const Color.fromRGBO(
               116,
               84,
@@ -85,13 +60,6 @@ class ProgressBar extends StatelessWidget {
       required double actual,
       required Color fillBar,
       required String iconlabel}) {
-  //              metric this bar represents
-  Widget makeSingleBar(
-      {required IconData barIcon,
-      required double goal,
-      required double actual,
-      required Color fillBar,
-      required String iconlabel}) {
     // Calculate the progress as a percentage
     double progress;
 
@@ -118,11 +86,6 @@ class ProgressBar extends StatelessWidget {
                 size: 30,
                 semanticLabel: iconlabel,
               ),
-              child: Icon(
-                barIcon,
-                size: 30,
-                semanticLabel: iconlabel,
-              ),
             ),
             Expanded(
               child: LinearProgressIndicator(
@@ -143,4 +106,3 @@ class ProgressBar extends StatelessWidget {
     );
   }
 }
-
