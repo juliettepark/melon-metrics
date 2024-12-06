@@ -32,3 +32,17 @@ Justification - This app does not have this problem happening frequently. It onl
 
 
 Possible Solution - A solution could be to change the icon color so that it becomes brighter when selected or make the on select color lighter, but a color where you can still tell that it is highlighted. As for the bars, I think it would be smart to section them off and make the background color something else so that the white, empty bar does not blend in with the background.
+
+---
+
+Name: Yijia Zhao
+App audited: HootHealth
+Date/Place: 12/4/24, Apartment
+
+Device and settings used: iPhone with voice over inspector
+
+Strength
+The app's text and buttons are fully accessible with semantic labels, making it easy to use and navigate for users with disabilities. The UI looks pretty and comfortable with no out of place color. I absolutely love the pet feature!!!! Not sure the pixels info is design or not but it still looks pretty good. the health summary (sleep/steps/calories) is beautifully visualized with bars, which is clear and engaging.
+
+Weakness
+On the settings page, when users adjust the values for sleep, steps, or calories and press save, it would be helpful to display a confirmation message indicating that the changes have been saved. Otherwise, users might feel uncertain if their updates were successfully applied.
