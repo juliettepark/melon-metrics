@@ -46,7 +46,7 @@ it would've been too time consuming to create/draw the spritesheets to fit our o
 
 **Describe two areas of future work for your app, including how you could increase the accessibility and usability of this app**
 
-- Since our audit mentioned that we had low contrast with some of the text and background, we could find a different color scheme or change some of the colors to increase the accessibility of our app.
+- For accessibility, along the lines of our audit, we can try to improve the contrast. Although we updated the colors in bad-contrast-parts of our app (based on the feedback we received in the peer audit), I think the overall App theme could be changed to a more accessible theme. Currently, the colour theme being a darker shade makes it harder on the eyes even though we meet the minimum contrast requirements.
 
 - An idea that came up during the presentation was to have incorporate a text box for the pet that reflected its condition/feelings. This would help users get an accurate idea of what the pet is feeling at the time by reading a message sent by the pet rather than judging the looks of the pet through its visuals.
 
@@ -55,6 +55,7 @@ it would've been too time consuming to create/draw the spritesheets to fit our o
 Cite anything (website or other resource) or anyone that assisted you in creating your solution to this assignment.
 Remember to include all online resources such as Stack Overflow, blogs, students in this class, or TAs and instructors who helped you during OH
 
+- https://github.com/ubclaunchpad/virtual-pet/tree/dd425d7a526baa90e53fa05cefbff46d474f7f46 - this repo was one of the most useful guidelines on getting started with Flame and structuring our animations. Also, this was the source for most of our Sprite png images (the owlet)
 - https://www.youtube.com/watch?app=desktop&v=6Gxa-v7Zh7I&t=0s (calendar view tutorial)
 - ed board
 - https://medium.com/@expertappdevs/mastering-flutter-progress-indicators-8606ac1ec788
